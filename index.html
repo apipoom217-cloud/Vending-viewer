@@ -13,18 +13,17 @@ html,body{margin:0;height:100%;overflow:hidden}
 body{background:var(--bg);color:var(--txt);font:15px/1.4 -apple-system,"SF Pro Text","Helvetica Neue",sans-serif;display:flex;flex-direction:column;user-select:none}
 header{display:flex;align-items:center;gap:7px;padding:9px 12px;padding-top:max(9px,env(safe-area-inset-top));background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
 h1{font-size:16px;margin:0;font-weight:700;white-space:nowrap}
-.ro{font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;background:#20304a;color:#7fb8ff;border:1px solid #2f4straight}
-.ro{border:1px solid #2f4a6d}
+.ro{font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;background:#20304a;color:#7fb8ff;border:1px solid #2f4a6d}
 button{font:inherit;color:var(--txt);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer}
 button:active{transform:scale(.97)}
 .btn-p{background:var(--acc);border-color:var(--acc);color:#04101f;font-weight:600}
 .sm{padding:6px 10px;font-size:13px;border-radius:8px}
 .sm.on{background:var(--acc);border-color:var(--acc);color:#04101f;font-weight:700}
 .spacer{flex:1}
-input,select{font:inherit;background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:9px;padding:8px 10px;outline:none;width:100%}
-input:focus,select:focus{border-color:var(--acc)}
+input,select,textarea{font:inherit;background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:9px;padding:8px 10px;outline:none;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--acc)}
 #msel{width:auto;min-width:120px;max-width:190px;padding:6px 9px;font-size:13px;font-weight:600}
-#q{width:180px;padding:6px 10px;font-size:13px}
+#q{width:170px;padding:6px 10px;font-size:13px}
 main{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:14px;min-height:0}
 #board{width:max-content;min-width:100%}
 .stat{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);padding:0 2px 10px;position:sticky;left:0}
@@ -63,13 +62,12 @@ main{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:14px;min-heig
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{color:var(--dim);font-size:11px;text-align:left;font-weight:600;padding-bottom:4px}
 td{padding:6px 4px 6px 0;border-top:1px solid var(--line);vertical-align:top}
-/* welcome / drop */
 #welcome{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:40}
 #welcome.hide{display:none}
-.drop{width:min(460px,100%);background:var(--panel);border:2px dashed var(--line);border-radius:20px;padding:34px 24px;text-align:center}
+.drop{width:min(460px,100%);background:var(--panel);border:2px dashed var(--line);border-radius:20px;padding:30px 24px;text-align:center}
 .drop.over{border-color:var(--acc);background:#1b2333}
 .drop h2{margin:0 0 6px;font-size:20px}
-.drop p{color:var(--dim);font-size:13px;margin:0 0 18px;line-height:1.6}
+.drop p{color:var(--dim);font-size:13px;margin:0 0 16px;line-height:1.6}
 .hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#252b39;border:1px solid var(--line);padding:9px 16px;border-radius:999px;font-size:13px;z-index:60;opacity:0;transition:.2s;pointer-events:none}
 .hint.on{opacity:1}
 @media print{header,.hint,.legend{display:none}main{overflow:visible}}
@@ -85,7 +83,8 @@ td{padding:6px 4px 6px 0;border-top:1px solid var(--line);vertical-align:top}
   <span class="spacer"></span>
   <button class="sm" id="needBtn" onclick="needMode=!needMode;paint()">⛽ ต้องเติม</button>
   <button class="sm" onclick="openList()">📋 ใบรายการ</button>
-  <button class="sm" onclick="fi.click()">📂 เปิดไฟล์</button>
+  <button class="sm" onclick="openPaste()">🔤 วางโค้ด</button>
+  <button class="sm" onclick="fi.click()">📂 ไฟล์</button>
 </header>
 
 <main id="main">
@@ -100,8 +99,9 @@ td{padding:6px 4px 6px 0;border-top:1px solid var(--line);vertical-align:top}
   <div class="drop" id="drop">
     <div style="font-size:44px;line-height:1;margin-bottom:10px">🥤</div>
     <h2>Vending Viewer</h2>
-    <p>โหมดดูผังตู้อย่างเดียว ไม่สามารถแก้ไขข้อมูลได้<br>เลือกไฟล์ <b>.json</b> ที่ได้รับมาเพื่อเริ่มดู</p>
-    <button class="btn-p" style="width:100%;padding:12px" onclick="fi.click()">📂 เลือกไฟล์ผังตู้</button>
+    <p>โหมดดูผังตู้อย่างเดียว แก้ไขข้อมูลไม่ได้<br>เปิดจากลิงก์ · สแกน QR · วางโค้ด · หรือเลือกไฟล์</p>
+    <button class="btn-p" style="width:100%;padding:12px;margin-bottom:8px" onclick="openPaste()">🔤 วางโค้ด / ลิงก์ที่ได้รับ</button>
+    <button style="width:100%;padding:12px" onclick="fi.click()">📂 เลือกไฟล์ .json</button>
     <p style="margin:14px 0 0;font-size:12px">หรือลากไฟล์มาวางในกรอบนี้</p>
   </div>
 </div>
@@ -111,10 +111,9 @@ td{padding:6px 4px 6px 0;border-top:1px solid var(--line);vertical-align:top}
 
 <script>
 const VK='vm_viewer_data';
-const FONT='-apple-system,"Helvetica Neue",Arial,sans-serif';
+const MECH=['เกลียว','เกลียวคู่','สายพาน','ลิฟต์','ล็อกเกอร์'];
 let V=null,needMode=false,tagF=null;
 
-/* ---------- ICONS (ชุดเดียวกับแอปหลัก) ---------- */
 const SVGI={
 bottle:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="19.5" y="2.5" width="9" height="6" rx="1.6" fill="#7fb8ff"/><path d="M20 8.5h8v3.2l3.2 4.3V41a4 4 0 0 1-4 4h-6.4a4 4 0 0 1-4-4V16l3.2-4.3z" fill="#d6ecff" stroke="#6fb6ff" stroke-width="1.6" stroke-linejoin="round"/><path d="M17 24h14v9H17z" fill="#4f9cff"/><path d="M20 26.5h6M20 29.5h8" stroke="#dceeff" stroke-width="1.4" stroke-linecap="round"/></svg>`,
 can:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="13" y="6" width="22" height="36" rx="4.5" fill="#e64a4f" stroke="#b93338" stroke-width="1.6"/><path d="M13 10.5c0-2.5 2-4.5 4.5-4.5h13c2.5 0 4.5 2 4.5 4.5v1.5H13z" fill="#c9d6e8"/><path d="M13 36h22v1.5c0 2.5-2 4.5-4.5 4.5h-13C15 42 13 40 13 37.5z" fill="#c9d6e8"/><rect x="13" y="19" width="22" height="8.5" fill="#fff" opacity=".9"/><path d="M17 23.2h14" stroke="#e64a4f" stroke-width="2" stroke-linecap="round"/></svg>`,
@@ -125,8 +124,6 @@ dessert:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M1
 snackcan:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="15" y="8" width="18" height="34" rx="3" fill="#e8a33c"/><path d="M15 38h18v1a3 3 0 0 1-3 3H18a3 3 0 0 1-3-3z" fill="#c4832a"/><rect x="15" y="18" width="18" height="10" fill="#fff" opacity=".92"/><path d="M18.5 23h11" stroke="#e8a33c" stroke-width="2" stroke-linecap="round"/><ellipse cx="24" cy="8" rx="9" ry="3.6" fill="#f6e2b6"/><ellipse cx="24" cy="8" rx="5.6" ry="2.1" fill="#dcc189"/></svg>`};
 const isSvg=i=>typeof i==='string'&&i.startsWith('svg:');
 const icoHTML=i=>isSvg(i)?(SVGI[i.slice(4)]||'📦'):(i||'📦');
-
-/* ---------- HELPERS ---------- */
 const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const rgba=(h,a)=>{try{const n=parseInt(String(h).slice(1),16);return`rgba(${n>>16&255},${n>>8&255},${n&255},${a})`}catch(e){return'rgba(79,156,255,'+a+')'}};
 const code=(r,c)=>String.fromCharCode(65+r)+(c+1);
@@ -141,33 +138,58 @@ function slotLabel(m,k){const sp=SPAN(m.slots[k]);if(sp<2)return k;
   const r=k.charCodeAt(0)-65,c=+k.slice(1)-1;return k+'–'+code(r,c+sp-1)}
 function toast(m){const h=document.getElementById('hint');h.textContent=m;h.classList.add('on');clearTimeout(h.t);h.t=setTimeout(()=>h.classList.remove('on'),1800)}
 
-/* ---------- LOAD FILE ---------- */
+/* ---------- DECODE ---------- */
+function b64dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';
+ const bin=atob(s),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u}
+async function decodeCode(str){
+ let s=String(str||'').trim();
+ if(s.includes('#'))s=s.slice(s.indexOf('#')+1);
+ s=s.replace(/^\/+/,'').trim();
+ const tag=s[0],body=s.slice(1);
+ let bytes=b64dec(body);
+ if(tag==='z'){
+   const ds=new DecompressionStream('deflate');const w=ds.writable.getWriter();
+   w.write(bytes);w.close();
+   bytes=new Uint8Array(await new Response(ds.readable).arrayBuffer());
+ }else if(tag!=='r')throw 0;
+ return unpack(JSON.parse(new TextDecoder().decode(bytes)));
+}
+function unpack(d){
+ if(!d||!d.m)throw 0;
+ const products=d.p.map((a,i)=>({id:'p'+i,name:a[0],icon:a[1],cap:a[2],price:a[3],cats:a[4]?a[4].split('|'):[]}));
+ const tags=d.t.map((a,i)=>({id:'t'+i,name:a[0],color:a[1]}));
+ const machines=d.m.map((a,i)=>{const slots={};
+  for(const k in a[3]){const s=a[3][k];
+   slots[k]={pid:'p'+s[0],qty:s[1],cap:s[2],mech:MECH[s[3]]||'เกลียว',lvl:s[4],span:s[5],
+    tags:(s[6]||[]).map(x=>'t'+x),note:s[7]||''}}
+  return {id:'m'+i,name:a[0],rows:a[1],cols:a[2],slots}});
+ return {active:0,machines,tags,products};
+}
 function normalize(d){
-  if(!d||typeof d!=='object')throw 0;
-  if(d.machines&&d.machines.length)return{active:0,machines:d.machines,tags:d.tags||[],products:d.products||[]};
-  if(d.cfg)return{active:0,machines:[{id:'m1',name:d.cfg.name||'ตู้',rows:d.cfg.rows||6,cols:d.cfg.cols||9,slots:d.slots||{}}],tags:d.tags||[],products:d.products||[]};
-  throw 0;
+ if(!d||typeof d!=='object')throw 0;
+ if(d.machines&&d.machines.length)return{active:0,machines:d.machines,tags:d.tags||[],products:d.products||[]};
+ if(d.cfg)return{active:0,machines:[{id:'m1',name:d.cfg.name||'ตู้',rows:d.cfg.rows||6,cols:d.cfg.cols||9,slots:d.slots||{}}],tags:d.tags||[],products:d.products||[]};
+ throw 0;
 }
-function readFile(f){
-  if(!f)return;
-  const r=new FileReader();
-  r.onload=()=>{
-    try{
-      V=normalize(JSON.parse(r.result));
-      try{localStorage.setItem(VK,JSON.stringify(V))}catch(e){}
-      document.getElementById('welcome').classList.add('hide');
-      needMode=false;tagF=null;document.getElementById('q').value='';
-      paint();toast('เปิดไฟล์สำเร็จ · '+V.machines.length+' ตู้');
-    }catch(e){toast('⚠️ ไฟล์ไม่ถูกต้อง หรือไม่ใช่ไฟล์ผังตู้')}
-  };
-  r.readAsText(f);
+function apply(data,msg){
+ V=data;try{localStorage.setItem(VK,JSON.stringify(V))}catch(e){}
+ document.getElementById('welcome').classList.add('hide');
+ needMode=false;tagF=null;document.getElementById('q').value='';
+ paint();toast(msg||'โหลดข้อมูลสำเร็จ');
 }
-const dz=document.getElementById('drop');
-['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('over')}));
-['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('over')}));
-dz.addEventListener('drop',e=>readFile(e.dataTransfer.files[0]));
-document.addEventListener('dragover',e=>e.preventDefault());
-document.addEventListener('drop',e=>{e.preventDefault();if(e.dataTransfer.files[0])readFile(e.dataTransfer.files[0])});
+function readFile(f){if(!f)return;const r=new FileReader();
+ r.onload=()=>{try{apply(normalize(JSON.parse(r.result)),'เปิดไฟล์สำเร็จ')}catch(e){toast('⚠️ ไฟล์ไม่ถูกต้อง')}};
+ r.readAsText(f)}
+function openPaste(){
+ const md=modal(`<h3>🔤 วางโค้ด / ลิงก์</h3>
+  <div class="f"><label>วางข้อความที่ได้รับมาที่นี่</label>
+   <textarea id="pc" rows="5" placeholder="z8J9... หรือ https://.../viewer.html#z8J9..."></textarea></div>
+  <div class="acts"><button class="btn-p" style="flex:1" id="pgo">เปิดผัง</button>
+  <button onclick="closeAll()">ยกเลิก</button></div>`);
+ md.querySelector('#pgo').onclick=async()=>{
+  try{apply(await decodeCode(md.querySelector('#pc').value),'โหลดจากโค้ดสำเร็จ');closeAll()}
+  catch(e){toast('⚠️ โค้ดไม่ถูกต้อง')}};
+}
 
 /* ---------- PAINT ---------- */
 function paint(){
@@ -176,14 +198,12 @@ function paint(){
   document.getElementById('msel').innerHTML=V.machines.map((x,i)=>`<option value="${i}" ${i===V.active?'selected':''}>${esc(x.name)}</option>`).join('');
   document.getElementById('needBtn').className='sm'+(needMode?' on':'');
   document.documentElement.style.setProperty('--cols',m.cols);
-
   let qty=0,cap=0,low=0,used=0;
   for(const k in m.slots){const s=m.slots[k];used++;qty+=+s.qty||0;cap+=+s.cap||0;if((+s.qty||0)<(+s.cap||0))low++}
   document.getElementById('stat').innerHTML=
    `<span>${esc(m.name)} · <b>${m.rows}×${m.cols}</b></span><span>ช่องสินค้า <b>${used}</b></span>
     <span>ว่าง <b>${m.rows*m.cols-used-cov.size}</b></span><span>สต๊อก <b>${qty}</b>/${cap}</span>
     <span>ต้องเติม <b style="color:var(--warn)">${low}</b> ช่อง</span>`;
-
   let h='';
   for(let r=0;r<m.rows;r++){
     h+=`<div class="shelf"><div class="rlab">${String.fromCharCode(65+r)}</div>`;
@@ -213,13 +233,10 @@ function paint(){
   }
   const el=document.getElementById('machine');el.innerHTML=h;
   el.querySelectorAll('.slot').forEach(x=>x.addEventListener('click',()=>showSlot(x.dataset.k)));
-
   document.getElementById('legend').innerHTML='<span>แท็ก:</span>'+(V.tags.length?V.tags.map(t=>
     `<span class="lg ${tagF===t.id?'on':''}" style="color:${t.color};border-color:${t.color};background:${rgba(t.color,.15)}" onclick="tagF=tagF==='${t.id}'?null:'${t.id}';paint()"><i style="background:${t.color}"></i>${esc(t.name)}</span>`).join('')
     :'<span style="font-size:12px">— ไม่มีแท็ก —</span>');
 }
-
-/* ---------- READ-ONLY DETAIL ---------- */
 function modal(html,wide){const d=document.createElement('div');d.className='mask';
   d.innerHTML='<div class="modal'+(wide?' wide':'')+'">'+html+'</div>';
   d.addEventListener('click',e=>{if(e.target===d)d.remove()});document.body.appendChild(d);return d}
@@ -233,7 +250,7 @@ function showSlot(k){
   modal(`<h3 style="display:flex;align-items:center;gap:10px">
       <span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--card);border-radius:10px;font-size:22px">${icoHTML(p?.icon)}</span>
       ช่อง ${slotLabel(m,k)}</h3>
-    <div class="kv"><span>สินค้า</span><span>${p?esc(p.name):'— ไม่พบข้อมูลสินค้า —'}</span></div>
+    <div class="kv"><span>สินค้า</span><span>${p?esc(p.name):'—'}</span></div>
     <div class="kv"><span>แท็ก</span><span>${tg.map(t=>`<span style="color:${t.color}">${esc(t.name)}</span>`).join(' · ')||'—'}</span></div>
     <div class="kv"><span>สต๊อก / ความจุ</span><span style="color:${fg}">${s.qty} / ${s.cap} ชิ้น</span></div>
     <div class="kv"><span>ต้องเติมอีก</span><span>${Math.max(0,s.cap-s.qty)} ชิ้น</span></div>
@@ -244,8 +261,6 @@ function showSlot(k){
     ${s.note?`<div class="kv"><span>หมายเหตุ</span><span>${esc(s.note)}</span></div>`:''}
     <div class="acts"><button class="btn-p" style="flex:1" onclick="closeAll()">ปิด</button></div>`);
 }
-
-/* ---------- LIST ---------- */
 function openList(){
   const m=M(),rows=Object.keys(m.slots).sort((a,b)=>a.charCodeAt(0)-b.charCodeAt(0)||+a.slice(1)-+b.slice(1))
     .map(k=>({k,s:m.slots[k],p:P(m.slots[k].pid)}));
@@ -255,20 +270,29 @@ function openList(){
    <div style="font-size:12px;color:var(--dim);margin-bottom:10px">มูลค่าสต๊อก ≈ <b style="color:var(--txt)">฿${money.toLocaleString()}</b> · ต้องเติม ${need.reduce((a,r)=>a+r.s.cap-r.s.qty,0)} ชิ้น ใน ${need.length} ช่อง</div>
    <div style="max-height:52vh;overflow:auto"><table>
      <tr><th>ช่อง</th><th>สินค้า</th><th>แท็ก</th><th>กลไก</th><th>สต๊อก</th><th>เติม</th></tr>
-     ${rows.map(r=>`<tr><td><b>${slotLabel(m,r.k)}</b></td>
-       <td>${r.p?esc(r.p.name):'?'}</td>
+     ${rows.map(r=>`<tr><td><b>${slotLabel(m,r.k)}</b></td><td>${r.p?esc(r.p.name):'?'}</td>
        <td>${(r.s.tags||[]).map(T).filter(Boolean).map(t=>`<span style="color:${t.color};font-size:11px;font-weight:700">${esc(t.name)}</span>`).join(' ')}</td>
        <td style="color:var(--dim)">${esc(r.s.mech||'')}${r.s.lvl?' '+esc(r.s.lvl):''}</td>
-       <td>${r.s.qty}/${r.s.cap}</td>
-       <td style="color:var(--warn);font-weight:700">${r.s.cap-r.s.qty||''}</td></tr>`).join('')
+       <td>${r.s.qty}/${r.s.cap}</td><td style="color:var(--warn);font-weight:700">${r.s.cap-r.s.qty||''}</td></tr>`).join('')
        ||'<tr><td colspan="6" style="color:var(--dim);padding:10px">ไม่มีสินค้าในตู้นี้</td></tr>'}
    </table></div>
    <div class="acts"><button style="flex:1" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
    <button class="btn-p" onclick="closeAll()">ปิด</button></div>`,true);
 }
+const dz=document.getElementById('drop');
+['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('over')}));
+document.addEventListener('dragover',e=>e.preventDefault());
+document.addEventListener('drop',e=>{e.preventDefault();if(e.dataTransfer.files[0])readFile(e.dataTransfer.files[0])});
 
 /* ---------- BOOT ---------- */
-try{const c=localStorage.getItem(VK);if(c){V=normalize(JSON.parse(c));document.getElementById('welcome').classList.add('hide');paint()}}catch(e){}
+(async()=>{
+ const h=location.hash.slice(1);
+ if(h&&h.length>4){try{apply(await decodeCode(h),'เปิดจากลิงก์สำเร็จ');
+   history.replaceState(null,'',location.pathname);return}catch(e){toast('⚠️ ลิงก์เสียหาย')}}
+ try{const c=localStorage.getItem(VK);if(c){V=normalize(JSON.parse(c));
+   document.getElementById('welcome').classList.add('hide');paint()}}catch(e){}
+})();
 document.addEventListener('gesturestart',e=>e.preventDefault());
 </script>
 </body>
