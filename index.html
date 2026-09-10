@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Vending Viewer">
+<title>Vending Viewer</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0f1115;--panel:#171a21;--card:#1e2230;--line:#2c3242;--txt:#e8ecf4;--dim:#93a0b8;--acc:#4f9cff;--ok:#31c48d;--warn:#f4a53c;--bad:#f2555a;--cols:9}
+html,body{margin:0;height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--txt);font:15px/1.4 -apple-system,"SF Pro Text","Helvetica Neue",sans-serif;display:flex;flex-direction:column;user-select:none}
+header{display:flex;align-items:center;gap:7px;padding:9px 12px;padding-top:max(9px,env(safe-area-inset-top));background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+h1{font-size:16px;margin:0;font-weight:700;white-space:nowrap}
+.ro{font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;background:#20304a;color:#7fb8ff;border:1px solid #2f4straight}
+.ro{border:1px solid #2f4a6d}
+button{font:inherit;color:var(--txt);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;cursor:pointer}
+button:active{transform:scale(.97)}
+.btn-p{background:var(--acc);border-color:var(--acc);color:#04101f;font-weight:600}
+.sm{padding:6px 10px;font-size:13px;border-radius:8px}
+.sm.on{background:var(--acc);border-color:var(--acc);color:#04101f;font-weight:700}
+.spacer{flex:1}
+input,select{font:inherit;background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:9px;padding:8px 10px;outline:none;width:100%}
+input:focus,select:focus{border-color:var(--acc)}
+#msel{width:auto;min-width:120px;max-width:190px;padding:6px 9px;font-size:13px;font-weight:600}
+#q{width:180px;padding:6px 10px;font-size:13px}
+main{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:14px;min-height:0}
+#board{width:max-content;min-width:100%}
+.stat{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);padding:0 2px 10px;position:sticky;left:0}
+.stat b{color:var(--txt);font-size:14px}
+.machine{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px;width:max-content;min-width:100%}
+.shelf{display:grid;grid-template-columns:32px repeat(var(--cols),102px);gap:8px;margin-bottom:8px}
+.shelf:last-child{margin-bottom:0}
+.rlab{display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--dim);font-size:13px}
+.slot{position:relative;background:var(--card);border:1px dashed var(--line);border-radius:12px;min-height:130px;padding:20px 6px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;overflow:hidden;transition:opacity .15s}
+.slot.filled{border-style:solid}
+.slot.dim{opacity:.22}
+.slot.hit{box-shadow:0 0 0 2px var(--acc),0 0 18px rgba(79,156,255,.35)}
+.slot.need{box-shadow:0 0 0 2px var(--warn),0 0 18px rgba(244,165,60,.3)}
+.scode{position:absolute;top:4px;left:6px;font-size:10px;color:var(--dim);font-weight:700}
+.stags{position:absolute;top:3px;right:5px;display:flex;flex-direction:column;align-items:flex-end;gap:1px;max-width:64%}
+.stags span{font-size:9px;font-weight:800;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ico{font-size:27px;line-height:1;height:32px;display:flex;align-items:center;justify-content:center}
+.ico svg{width:30px;height:30px}
+.sname{font-size:11px;font-weight:600;line-height:1.22;width:100%;max-height:28px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word;overflow-wrap:anywhere}
+.qty{font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;background:#233b30;color:var(--ok)}
+.qty.w{background:#3d3323;color:var(--warn)}.qty.b{background:#3d2427;color:var(--bad)}
+.mech{position:absolute;bottom:3px;left:0;right:0;padding:0 5px;font-size:9px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+.empty{color:#5c6579;font-size:21px}
+.legend{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px;position:sticky;left:0;font-size:12px;color:var(--dim)}
+.lg{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;border:1.5px solid;cursor:pointer;opacity:.5}
+.lg.on{opacity:1}
+.lg i{width:9px;height:9px;border-radius:50%;display:block}
+.mask{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:18px;width:min(470px,100%);max-height:88vh;overflow-y:auto;padding:18px}
+.modal.wide{width:min(880px,100%)}
+.modal h3{margin:0 0 12px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.kv span:first-child{color:var(--dim);font-size:12px;white-space:nowrap}
+.kv span:last-child{font-weight:600;text-align:right}
+.acts{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{color:var(--dim);font-size:11px;text-align:left;font-weight:600;padding-bottom:4px}
+td{padding:6px 4px 6px 0;border-top:1px solid var(--line);vertical-align:top}
+/* welcome / drop */
+#welcome{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:40}
+#welcome.hide{display:none}
+.drop{width:min(460px,100%);background:var(--panel);border:2px dashed var(--line);border-radius:20px;padding:34px 24px;text-align:center}
+.drop.over{border-color:var(--acc);background:#1b2333}
+.drop h2{margin:0 0 6px;font-size:20px}
+.drop p{color:var(--dim);font-size:13px;margin:0 0 18px;line-height:1.6}
+.hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:#252b39;border:1px solid var(--line);padding:9px 16px;border-radius:999px;font-size:13px;z-index:60;opacity:0;transition:.2s;pointer-events:none}
+.hint.on{opacity:1}
+@media print{header,.hint,.legend{display:none}main{overflow:visible}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>👁️ Vending Viewer</h1>
+  <span class="ro">อ่านอย่างเดียว</span>
+  <select id="msel" onchange="V.active=+this.value;paint()"></select>
+  <input id="q" placeholder="🔍 ค้นหาสินค้า" oninput="paint()">
+  <span class="spacer"></span>
+  <button class="sm" id="needBtn" onclick="needMode=!needMode;paint()">⛽ ต้องเติม</button>
+  <button class="sm" onclick="openList()">📋 ใบรายการ</button>
+  <button class="sm" onclick="fi.click()">📂 เปิดไฟล์</button>
+</header>
+
+<main id="main">
+  <div id="board">
+    <div class="stat" id="stat"></div>
+    <div class="machine" id="machine"></div>
+    <div class="legend" id="legend"></div>
+  </div>
+</main>
+
+<div id="welcome">
+  <div class="drop" id="drop">
+    <div style="font-size:44px;line-height:1;margin-bottom:10px">🥤</div>
+    <h2>Vending Viewer</h2>
+    <p>โหมดดูผังตู้อย่างเดียว ไม่สามารถแก้ไขข้อมูลได้<br>เลือกไฟล์ <b>.json</b> ที่ได้รับมาเพื่อเริ่มดู</p>
+    <button class="btn-p" style="width:100%;padding:12px" onclick="fi.click()">📂 เลือกไฟล์ผังตู้</button>
+    <p style="margin:14px 0 0;font-size:12px">หรือลากไฟล์มาวางในกรอบนี้</p>
+  </div>
+</div>
+
+<input type="file" id="fi" accept=".json,application/json" hidden onchange="readFile(this.files[0]);this.value=''">
+<div class="hint" id="hint"></div>
+
+<script>
+const VK='vm_viewer_data';
+const FONT='-apple-system,"Helvetica Neue",Arial,sans-serif';
+let V=null,needMode=false,tagF=null;
+
+/* ---------- ICONS (ชุดเดียวกับแอปหลัก) ---------- */
+const SVGI={
+bottle:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="19.5" y="2.5" width="9" height="6" rx="1.6" fill="#7fb8ff"/><path d="M20 8.5h8v3.2l3.2 4.3V41a4 4 0 0 1-4 4h-6.4a4 4 0 0 1-4-4V16l3.2-4.3z" fill="#d6ecff" stroke="#6fb6ff" stroke-width="1.6" stroke-linejoin="round"/><path d="M17 24h14v9H17z" fill="#4f9cff"/><path d="M20 26.5h6M20 29.5h8" stroke="#dceeff" stroke-width="1.4" stroke-linecap="round"/></svg>`,
+can:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="13" y="6" width="22" height="36" rx="4.5" fill="#e64a4f" stroke="#b93338" stroke-width="1.6"/><path d="M13 10.5c0-2.5 2-4.5 4.5-4.5h13c2.5 0 4.5 2 4.5 4.5v1.5H13z" fill="#c9d6e8"/><path d="M13 36h22v1.5c0 2.5-2 4.5-4.5 4.5h-13C15 42 13 40 13 37.5z" fill="#c9d6e8"/><rect x="13" y="19" width="22" height="8.5" fill="#fff" opacity=".9"/><path d="M17 23.2h14" stroke="#e64a4f" stroke-width="2" stroke-linecap="round"/></svg>`,
+gbottle:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M21 3h6v4h-6z" fill="#8a6a3a"/><path d="M21 7h6v6l3.5 6.5V42a3 3 0 0 1-3 3h-7a3 3 0 0 1-3-3V19.5L21 13z" fill="#9fd8c2" stroke="#5fae95" stroke-width="1.6" stroke-linejoin="round"/><rect x="17.5" y="26" width="13" height="10" rx="1" fill="#f4a53c"/></svg>`,
+snack:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M8 10l6 5v18l-6 5z" fill="#c9761f"/><path d="M40 10l-6 5v18l6 5z" fill="#c9761f"/><rect x="13" y="13" width="22" height="22" rx="3.5" fill="#f0a03c" stroke="#c9761f" stroke-width="1.4"/><rect x="16.5" y="17.5" width="15" height="5" rx="2.5" fill="#fff" opacity=".92"/><circle cx="20" cy="28.5" r="2.2" fill="#a85f14"/><circle cx="27" cy="29.5" r="1.7" fill="#a85f14"/></svg>`,
+chilled:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M24 2v13M19.5 5L24 8l4.5-3M19.5 12L24 9l4.5 3" stroke="#7fd3e8" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="8" y="17" width="32" height="23" rx="4" fill="#63c3dd"/><rect x="8" y="17" width="32" height="6.5" rx="3.2" fill="#cdeef8"/><rect x="12" y="27" width="10" height="9" rx="2" fill="#fff" opacity=".92"/><rect x="26" y="27" width="10" height="9" rx="2" fill="#fff" opacity=".55"/></svg>`,
+dessert:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M13 23h22l-2.8 17.5A3 3 0 0 1 29.2 43H18.8a3 3 0 0 1-3-2.5z" fill="#e8b57e"/><path d="M18 29h12M18 34h9" stroke="#c2884a" stroke-width="1.8" stroke-linecap="round" opacity=".65"/><path d="M24 8c-6.2 0-10.5 4.2-10.5 8.6 0 3.4 2.6 6.4 10.5 6.4s10.5-3 10.5-6.4C34.5 12.2 30.2 8 24 8z" fill="#ff9ec4"/><circle cx="24" cy="6.2" r="2.8" fill="#e0484d"/></svg>`,
+snackcan:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="15" y="8" width="18" height="34" rx="3" fill="#e8a33c"/><path d="M15 38h18v1a3 3 0 0 1-3 3H18a3 3 0 0 1-3-3z" fill="#c4832a"/><rect x="15" y="18" width="18" height="10" fill="#fff" opacity=".92"/><path d="M18.5 23h11" stroke="#e8a33c" stroke-width="2" stroke-linecap="round"/><ellipse cx="24" cy="8" rx="9" ry="3.6" fill="#f6e2b6"/><ellipse cx="24" cy="8" rx="5.6" ry="2.1" fill="#dcc189"/></svg>`};
+const isSvg=i=>typeof i==='string'&&i.startsWith('svg:');
+const icoHTML=i=>isSvg(i)?(SVGI[i.slice(4)]||'📦'):(i||'📦');
+
+/* ---------- HELPERS ---------- */
+const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const rgba=(h,a)=>{try{const n=parseInt(String(h).slice(1),16);return`rgba(${n>>16&255},${n>>8&255},${n&255},${a})`}catch(e){return'rgba(79,156,255,'+a+')'}};
+const code=(r,c)=>String.fromCharCode(65+r)+(c+1);
+const SPAN=s=>Math.max(1,+(s&&s.span)||1);
+const M=()=>V.machines[V.active]||V.machines[0];
+const P=id=>V.products.find(p=>p.id===id);
+const T=id=>V.tags.find(t=>t.id===id);
+function covered(m){const cov=new Set();
+  for(const k in m.slots){const sp=SPAN(m.slots[k]);if(sp>1){const r=k.charCodeAt(0)-65,c=+k.slice(1)-1;
+    for(let i=1;i<sp;i++)cov.add(code(r,c+i))}}return cov}
+function slotLabel(m,k){const sp=SPAN(m.slots[k]);if(sp<2)return k;
+  const r=k.charCodeAt(0)-65,c=+k.slice(1)-1;return k+'–'+code(r,c+sp-1)}
+function toast(m){const h=document.getElementById('hint');h.textContent=m;h.classList.add('on');clearTimeout(h.t);h.t=setTimeout(()=>h.classList.remove('on'),1800)}
+
+/* ---------- LOAD FILE ---------- */
+function normalize(d){
+  if(!d||typeof d!=='object')throw 0;
+  if(d.machines&&d.machines.length)return{active:0,machines:d.machines,tags:d.tags||[],products:d.products||[]};
+  if(d.cfg)return{active:0,machines:[{id:'m1',name:d.cfg.name||'ตู้',rows:d.cfg.rows||6,cols:d.cfg.cols||9,slots:d.slots||{}}],tags:d.tags||[],products:d.products||[]};
+  throw 0;
+}
+function readFile(f){
+  if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      V=normalize(JSON.parse(r.result));
+      try{localStorage.setItem(VK,JSON.stringify(V))}catch(e){}
+      document.getElementById('welcome').classList.add('hide');
+      needMode=false;tagF=null;document.getElementById('q').value='';
+      paint();toast('เปิดไฟล์สำเร็จ · '+V.machines.length+' ตู้');
+    }catch(e){toast('⚠️ ไฟล์ไม่ถูกต้อง หรือไม่ใช่ไฟล์ผังตู้')}
+  };
+  r.readAsText(f);
+}
+const dz=document.getElementById('drop');
+['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('over')}));
+dz.addEventListener('drop',e=>readFile(e.dataTransfer.files[0]));
+document.addEventListener('dragover',e=>e.preventDefault());
+document.addEventListener('drop',e=>{e.preventDefault();if(e.dataTransfer.files[0])readFile(e.dataTransfer.files[0])});
+
+/* ---------- PAINT ---------- */
+function paint(){
+  if(!V)return;
+  const m=M(),cov=covered(m),q=(document.getElementById('q').value||'').trim().toLowerCase();
+  document.getElementById('msel').innerHTML=V.machines.map((x,i)=>`<option value="${i}" ${i===V.active?'selected':''}>${esc(x.name)}</option>`).join('');
+  document.getElementById('needBtn').className='sm'+(needMode?' on':'');
+  document.documentElement.style.setProperty('--cols',m.cols);
+
+  let qty=0,cap=0,low=0,used=0;
+  for(const k in m.slots){const s=m.slots[k];used++;qty+=+s.qty||0;cap+=+s.cap||0;if((+s.qty||0)<(+s.cap||0))low++}
+  document.getElementById('stat').innerHTML=
+   `<span>${esc(m.name)} · <b>${m.rows}×${m.cols}</b></span><span>ช่องสินค้า <b>${used}</b></span>
+    <span>ว่าง <b>${m.rows*m.cols-used-cov.size}</b></span><span>สต๊อก <b>${qty}</b>/${cap}</span>
+    <span>ต้องเติม <b style="color:var(--warn)">${low}</b> ช่อง</span>`;
+
+  let h='';
+  for(let r=0;r<m.rows;r++){
+    h+=`<div class="shelf"><div class="rlab">${String.fromCharCode(65+r)}</div>`;
+    for(let c=0;c<m.cols;c++){
+      const k=code(r,c);if(cov.has(k))continue;
+      const s=m.slots[k],p=s&&P(s.pid),sp=SPAN(s);
+      const st=sp>1?`grid-column:span ${sp};`:'';
+      if(!p){h+=`<div class="slot" data-k="${k}" style="${st}"><span class="scode">${k}</span><span class="empty">—</span></div>`;continue}
+      const pct=s.cap?s.qty/s.cap:0,cls=s.qty==0?'b':pct<=.3?'w':'';
+      const tg=(s.tags||[]).map(T).filter(Boolean),col=tg[0]?tg[0].color:null;
+      const hitQ=q&&(p.name.toLowerCase().includes(q)||(p.cats||[]).join(',').toLowerCase().includes(q));
+      const hitT=tagF&&(s.tags||[]).includes(tagF);
+      const needIt=needMode&&(+s.qty||0)<(+s.cap||0);
+      let cl='slot filled';
+      if((q||tagF)&&!(hitQ||hitT))cl+=' dim';
+      if(hitQ||hitT)cl+=' hit';
+      if(needMode){if(needIt)cl+=' need';else cl+=' dim'}
+      h+=`<div class="${cl}" data-k="${k}" style="${st}${col?`background:${rgba(col,.16)};border-color:${rgba(col,.75)}`:''}">
+        <span class="scode">${slotLabel(m,k)}</span>
+        <span class="stags">${tg.map(t=>`<span style="color:${t.color}">${esc(t.name)}</span>`).join('')}</span>
+        <div class="ico">${icoHTML(p.icon)}</div>
+        <div class="sname">${esc(p.name)}</div>
+        <span class="qty ${cls}">${s.qty}/${s.cap}</span>
+        <span class="mech">${esc(s.mech||'')}${s.lvl?' '+esc(s.lvl):''}</span></div>`;
+    }
+    h+='</div>';
+  }
+  const el=document.getElementById('machine');el.innerHTML=h;
+  el.querySelectorAll('.slot').forEach(x=>x.addEventListener('click',()=>showSlot(x.dataset.k)));
+
+  document.getElementById('legend').innerHTML='<span>แท็ก:</span>'+(V.tags.length?V.tags.map(t=>
+    `<span class="lg ${tagF===t.id?'on':''}" style="color:${t.color};border-color:${t.color};background:${rgba(t.color,.15)}" onclick="tagF=tagF==='${t.id}'?null:'${t.id}';paint()"><i style="background:${t.color}"></i>${esc(t.name)}</span>`).join('')
+    :'<span style="font-size:12px">— ไม่มีแท็ก —</span>');
+}
+
+/* ---------- READ-ONLY DETAIL ---------- */
+function modal(html,wide){const d=document.createElement('div');d.className='mask';
+  d.innerHTML='<div class="modal'+(wide?' wide':'')+'">'+html+'</div>';
+  d.addEventListener('click',e=>{if(e.target===d)d.remove()});document.body.appendChild(d);return d}
+const closeAll=()=>document.querySelectorAll('.mask').forEach(x=>x.remove());
+function showSlot(k){
+  const m=M(),s=m.slots[k];
+  if(!s)return modal(`<h3>ช่อง ${k}</h3><div style="color:var(--dim);font-size:14px;padding:6px 0">ช่องนี้ว่าง ไม่มีสินค้า</div>
+    <div class="acts"><button class="btn-p" style="flex:1" onclick="closeAll()">ปิด</button></div>`);
+  const p=P(s.pid),tg=(s.tags||[]).map(T).filter(Boolean);
+  const pct=s.cap?s.qty/s.cap:0,fg=s.qty==0?'var(--bad)':pct<=.3?'var(--warn)':'var(--ok)';
+  modal(`<h3 style="display:flex;align-items:center;gap:10px">
+      <span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--card);border-radius:10px;font-size:22px">${icoHTML(p?.icon)}</span>
+      ช่อง ${slotLabel(m,k)}</h3>
+    <div class="kv"><span>สินค้า</span><span>${p?esc(p.name):'— ไม่พบข้อมูลสินค้า —'}</span></div>
+    <div class="kv"><span>แท็ก</span><span>${tg.map(t=>`<span style="color:${t.color}">${esc(t.name)}</span>`).join(' · ')||'—'}</span></div>
+    <div class="kv"><span>สต๊อก / ความจุ</span><span style="color:${fg}">${s.qty} / ${s.cap} ชิ้น</span></div>
+    <div class="kv"><span>ต้องเติมอีก</span><span>${Math.max(0,s.cap-s.qty)} ชิ้น</span></div>
+    <div class="kv"><span>กลไกช่อง</span><span>${esc(s.mech||'—')}</span></div>
+    <div class="kv"><span>ระดับ / รอบเกลียว</span><span>${esc(s.lvl||'—')}</span></div>
+    <div class="kv"><span>จำนวนช่องที่รวม</span><span>${SPAN(s)} ช่อง</span></div>
+    <div class="kv"><span>ราคา</span><span>฿${p?.price||0}</span></div>
+    ${s.note?`<div class="kv"><span>หมายเหตุ</span><span>${esc(s.note)}</span></div>`:''}
+    <div class="acts"><button class="btn-p" style="flex:1" onclick="closeAll()">ปิด</button></div>`);
+}
+
+/* ---------- LIST ---------- */
+function openList(){
+  const m=M(),rows=Object.keys(m.slots).sort((a,b)=>a.charCodeAt(0)-b.charCodeAt(0)||+a.slice(1)-+b.slice(1))
+    .map(k=>({k,s:m.slots[k],p:P(m.slots[k].pid)}));
+  const need=rows.filter(r=>r.s.qty<r.s.cap);
+  const money=rows.reduce((a,r)=>a+(r.p?.price||0)*r.s.qty,0);
+  modal(`<h3>📋 ใบรายการ — ${esc(m.name)}</h3>
+   <div style="font-size:12px;color:var(--dim);margin-bottom:10px">มูลค่าสต๊อก ≈ <b style="color:var(--txt)">฿${money.toLocaleString()}</b> · ต้องเติม ${need.reduce((a,r)=>a+r.s.cap-r.s.qty,0)} ชิ้น ใน ${need.length} ช่อง</div>
+   <div style="max-height:52vh;overflow:auto"><table>
+     <tr><th>ช่อง</th><th>สินค้า</th><th>แท็ก</th><th>กลไก</th><th>สต๊อก</th><th>เติม</th></tr>
+     ${rows.map(r=>`<tr><td><b>${slotLabel(m,r.k)}</b></td>
+       <td>${r.p?esc(r.p.name):'?'}</td>
+       <td>${(r.s.tags||[]).map(T).filter(Boolean).map(t=>`<span style="color:${t.color};font-size:11px;font-weight:700">${esc(t.name)}</span>`).join(' ')}</td>
+       <td style="color:var(--dim)">${esc(r.s.mech||'')}${r.s.lvl?' '+esc(r.s.lvl):''}</td>
+       <td>${r.s.qty}/${r.s.cap}</td>
+       <td style="color:var(--warn);font-weight:700">${r.s.cap-r.s.qty||''}</td></tr>`).join('')
+       ||'<tr><td colspan="6" style="color:var(--dim);padding:10px">ไม่มีสินค้าในตู้นี้</td></tr>'}
+   </table></div>
+   <div class="acts"><button style="flex:1" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
+   <button class="btn-p" onclick="closeAll()">ปิด</button></div>`,true);
+}
+
+/* ---------- BOOT ---------- */
+try{const c=localStorage.getItem(VK);if(c){V=normalize(JSON.parse(c));document.getElementById('welcome').classList.add('hide');paint()}}catch(e){}
+document.addEventListener('gesturestart',e=>e.preventDefault());
+</script>
+</body>
+</html>
