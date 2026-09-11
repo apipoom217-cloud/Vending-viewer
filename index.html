@@ -141,17 +141,45 @@ function toast(m){const h=document.getElementById('hint');h.textContent=m;h.clas
 /* ---------- DECODE ---------- */
 function b64dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';
  const bin=atob(s),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u}
+const ICO_TBL=['svg:bottle','svg:can','svg:gbottle','svg:snack','svg:snackcan','svg:chilled','svg:dessert',
+ '🧴','🧃','🥛','🍫','🍬','🍟','🥨','🍞','🥤','☕','🍵','💧','🧊','🍜','🥪','🍦','💊','📦'];
+const PAL=['#f4a53c','#4f9cff','#31c48d','#f2555a','#b06cf5','#f472b6','#22d3ee','#a3e635','#fbbf24','#94a3b8'];
+function tDec(u8){
+ let s='';
+ for(let i=0;i<u8.length;i++){const b=u8[i];
+  if(b===0x7F){s+=String.fromCharCode((u8[i+1]<<8)|u8[i+2]);i+=2}
+  else if(b&0x80)s+=String.fromCharCode(0x0E00+(b&0x7F));
+  else s+=String.fromCharCode(b)}
+ return s;
+}
+function unpack2(txt){
+ const [,ps,ts,msS]=txt.split('\x02');
+ const products=(ps?ps.split('\x01'):[]).map((r,i)=>{const f=r.split('\x03'),ic=f[1]||'';
+  return{id:'p'+i,name:f[0],icon:ic[0]==='!'?ic.slice(1):(ICO_TBL[+ic]||'📦'),
+   cap:+f[2]||0,price:+f[3]||0,cats:[]}});
+ const tags=(ts?ts.split('\x01'):[]).map((r,i)=>{const f=r.split('\x03'),c=f[1]||'';
+  return{id:'t'+i,name:f[0],color:c[0]==='!'?c.slice(1):(PAL[+c]||'#94a3b8')}});
+ const machines=(msS?msS.split('\x05'):[]).map((mr,i)=>{
+  const f=mr.split('\x04'),slots={};
+  (f[3]?f[3].split('\x01'):[]).forEach(sr=>{const g=sr.split('\x03');
+   const cap=+g[2]||0,qty=(g[3]===''||g[3]==null)?cap:+g[3];
+   slots[g[0]]={pid:'p'+(+g[1]),cap,qty,mech:MECH[+g[4]||0]||'เกลียว',
+    span:Math.max(1,+g[5]||1),tags:(g[6]?g[6].split(','):[]).map(x=>'t'+x),
+    lvl:g[7]||'',note:g[8]||''}});
+  return{id:'m'+i,name:f[0],rows:+f[1]||6,cols:+f[2]||9,slots}});
+ return{active:0,machines,tags,products};
+}
 async function decodeCode(str){
  let s=String(str||'').trim();
  if(s.includes('#'))s=s.slice(s.indexOf('#')+1);
  s=s.replace(/^\/+/,'').trim();
- const tag=s[0],body=s.slice(1);
- let bytes=b64dec(body);
- if(tag==='z'){
-   const ds=new DecompressionStream('deflate');const w=ds.writable.getWriter();
-   w.write(bytes);w.close();
-   bytes=new Uint8Array(await new Response(ds.readable).arrayBuffer());
- }else if(tag!=='r')throw 0;
+ const tag=s[0];let bytes=b64dec(s.slice(1));
+ if(tag==='z'||tag==='Z'){
+  const ds=new DecompressionStream('deflate');const w=ds.writable.getWriter();
+  w.write(bytes);w.close();
+  bytes=new Uint8Array(await new Response(ds.readable).arrayBuffer());
+ }else if(tag!=='r'&&tag!=='R')throw 0;
+ if(tag==='Z'||tag==='R')return unpack2(tDec(bytes));
  return unpack(JSON.parse(new TextDecoder().decode(bytes)));
 }
 function unpack(d){
