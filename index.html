@@ -85,6 +85,7 @@ td{padding:6px 4px 6px 0;border-top:1px solid var(--line);vertical-align:top}
   <button class="sm" onclick="openList()">📋 ใบรายการ</button>
   <button class="sm" onclick="openPaste()">🔤 วางโค้ด</button>
   <button class="sm" onclick="fi.click()">📂 ไฟล์</button>
+  <button class="sm" id="rfBtn" style="display:none" onclick="refreshCloud()">🔄 อัปเดต</button>
 </header>
 
 <main id="main">
@@ -313,14 +314,39 @@ const dz=document.getElementById('drop');
 document.addEventListener('dragover',e=>e.preventDefault());
 document.addEventListener('drop',e=>{e.preventDefault();if(e.dataTransfer.files[0])readFile(e.dataTransfer.files[0])});
 
-/* ---------- BOOT ---------- */
+/* ---------- CLOUD + BOOT ---------- */
+const CK='vm_viewer_cloud';
+async function loadCloud(url,silent){
+ const r=await fetch(url+(url.includes('?')?'&':'?')+'t='+Date.now(),{cache:'no-store'});
+ if(!r.ok)throw new Error('HTTP '+r.status);
+ apply(normalize(await r.json()),silent?' ':'อัปเดตข้อมูลล่าสุดแล้ว');
+ localStorage.setItem(CK,url);
+ document.getElementById('rfBtn').style.display='';
+}
+async function refreshCloud(){
+ const u=localStorage.getItem(CK);
+ if(!u)return toast('โหมดนี้ไม่ได้เชื่อมกับไฟล์บนเว็บ');
+ toast('กำลังดึงข้อมูลล่าสุด…');
+ try{await loadCloud(u)}catch(e){toast('⚠️ โหลดไม่ได้ · '+e.message)}
+}
 (async()=>{
- const h=location.hash.slice(1);
- if(h&&h.length>4){try{apply(await decodeCode(h),'เปิดจากลิงก์สำเร็จ');
-   history.replaceState(null,'',location.pathname);return}catch(e){toast('⚠️ ลิงก์เสียหาย')}}
+ const h=decodeURIComponent(location.hash.slice(1));
+ if(h&&h[0]==='g'){
+  const custom=h.slice(1).replace(/^[:=]/,'').trim();
+  const url=custom||new URL('data.json',location.href).href;
+  try{await loadCloud(url);return}
+  catch(e){toast('⚠️ ยังไม่พบ data.json บนเซิร์ฟเวอร์ ('+e.message+')')}
+ }else if(h&&h.length>4){
+  try{apply(await decodeCode(h),'เปิดจากลิงก์สำเร็จ');
+   history.replaceState(null,'',location.pathname);return}
+  catch(e){toast('⚠️ ลิงก์เสียหาย')}
+ }
+ const cu=localStorage.getItem(CK);
+ if(cu){try{await loadCloud(cu,true);return}catch(e){}}
  try{const c=localStorage.getItem(VK);if(c){V=normalize(JSON.parse(c));
-   document.getElementById('welcome').classList.add('hide');paint()}}catch(e){}
+  document.getElementById('welcome').classList.add('hide');paint()}}catch(e){}
 })();
+document.addEventListener('gesturestart',e=>e.preventDefault());
 document.addEventListener('gesturestart',e=>e.preventDefault());
 </script>
 </body>
