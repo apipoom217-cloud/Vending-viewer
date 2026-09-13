@@ -1,1 +1,1067 @@
-{"active":0,"machines":[{"id":"4tf3awm","name":"ตู้ที่ 1","rows":6,"cols":9,"slots":{"A1":{"pid":"ha1ft7a","qty":4,"cap":4,"mech":"เกลียวคู่","lvl":"","note":"ช่องคู่","tags":[],"span":2},"A3":{"pid":"j7rn5ub","qty":4,"cap":4,"mech":"เกลียวคู่","lvl":"","note":"","tags":[],"span":2},"A5":{"pid":"ha1ft7a","qty":8,"cap":8,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"A6":{"pid":"zlvck9h","qty":8,"cap":8,"mech":"เกลียว","lvl":"","note":"","tags":["t2"]},"A7":{"pid":"ve0tlyw","qty":8,"cap":8,"mech":"เกลียว","lvl":"","note":"","tags":[]},"A8":{"pid":"j0bt8p6","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"A9":{"pid":"skjbqh1","qty":8,"cap":8,"mech":"เกลียว","lvl":"","note":"","tags":[]},"B9":{"pid":"1s0qndc","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t2"]},"B8":{"pid":"8q3ddda","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t2","zr7b8qj"]},"B7":{"pid":"hxlkq8x","qty":8,"cap":8,"mech":"เกลียว","lvl":"","note":"","tags":[]},"B6":{"pid":"48fxutd","qty":8,"cap":8,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"B5":{"pid":"5xqrki0","qty":8,"cap":8,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"B3":{"pid":"1kziaru","qty":4,"cap":4,"mech":"เกลียวคู่","lvl":"","note":"","tags":["t2"],"span":2},"B1":{"pid":"f6xhvrh","qty":4,"cap":4,"mech":"เกลียวคู่","lvl":"","note":"","tags":[],"span":2},"C1":{"pid":"36x19tq","qty":2,"cap":2,"mech":"เกลียว","lvl":"","note":"","tags":[]},"C2":{"pid":"opy84ho","qty":3,"cap":3,"mech":"เกลียว","lvl":"","note":"","tags":["t2","zr7b8qj"]},"C3":{"pid":"h385jed","qty":3,"cap":3,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"C4":{"pid":"pobx0ct","qty":3,"cap":3,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"C5":{"pid":"5ertgl6","qty":3,"cap":3,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"C6":{"pid":"r62qsz3","qty":3,"cap":3,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"C7":{"pid":"c7ygig9","qty":5,"cap":5,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"C8":{"pid":"7y91y8v","qty":3,"cap":3,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"C9":{"pid":"7em7x86","qty":3,"cap":3,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"D6":{"pid":"h06728v","qty":5,"cap":5,"mech":"เกลียว","lvl":"","note":"","tags":["j7k5mct"]},"D7":{"pid":"gv2ks8j","qty":5,"cap":5,"mech":"เกลียว","lvl":"","note":"","tags":["t3"]},"D8":{"pid":"wgdg37v","qty":5,"cap":5,"mech":"เกลียว","lvl":"","note":"","tags":["t3"]},"D9":{"pid":"g9d0cdf","qty":5,"cap":5,"mech":"เกลียว","lvl":"","note":"","tags":["t3"]},"E1":{"pid":"r9gucqr","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":[]},"E2":{"pid":"ttugrj5","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t2"]},"E3":{"pid":"n4kcn0m","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"E4":{"pid":"5aavk4f","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t2"]},"E5":{"pid":"qsej60l","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"E6":{"pid":"nkb91zf","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":[]},"E7":{"pid":"awoec5z","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":[]},"E8":{"pid":"wx8tjyp","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":[]},"E9":{"pid":"v8sm4fe","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"F1":{"pid":"ppme9in","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"F2":{"pid":"hkdz5hw","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"F3":{"pid":"hzkxcy2","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"F4":{"pid":"4yl2cse","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"F5":{"pid":"hyetze9","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"F6":{"pid":"st4oqz6","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":["t1"]},"F7":{"pid":"rkwiyik","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":[]},"F8":{"pid":"729nuep","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":[]},"F9":{"pid":"blwf6mc","qty":4,"cap":4,"mech":"เกลียว","lvl":"","note":"","tags":[]},"D5":{"pid":"wmw9i0m","qty":5,"cap":5,"mech":"เกลียว","lvl":"","note":"","tags":["t2"]},"D4":{"pid":"z6jzr03","qty":5,"cap":5,"mech":"เกลียว","lvl":"","note":"","tags":[]},"D3":{"pid":"hxau8za","qty":5,"cap":5,"mech":"เกลียว","lvl":"","note":"","tags":[]},"D2":{"pid":"vxw1ged","qty":5,"cap":5,"mech":"เกลียว","lvl":"","note":"","tags":["t2"]},"D1":{"pid":"2n9vsw9","qty":2,"cap":2,"mech":"เกลียว","lvl":"","note":"","tags":["t2","zr7b8qj"]}}}],"tags":[{"id":"t1","name":"สินค้าขายดี","color":"#f2555a"},{"id":"t2","name":"สินค้าใหม่","color":"#4f9cff"},{"id":"t3","name":"แบรนด์ยอดนิยม","color":"#31c48d"},{"id":"zr7b8qj","name":"สินค้ากระแส","color":"#22d3ee"},{"id":"j7k5mct","name":"สินค้ายอดนิยม","color":"#94a3b8"}],"products":[{"id":"bbty08x","name":"เลย์ร็อครสบาร์บีคิว","icon":"svg:snack","cats":["ขนม"],"cap":4,"price":35},{"id":"j7rn5ub","name":"เลย์คลาสสิครสมันฝรั่ง","icon":"svg:snack","cats":["ขนม"],"cap":4,"price":32},{"id":"ha1ft7a","name":"ชิคฟิงเกอร์","icon":"🧊","cats":["อาหารแช่เย็น"],"cap":8,"price":29},{"id":"zlvck9h","name":"ออมุกหมึกงาดำ","icon":"🧊","cats":["อาหารแช่เย็น"],"cap":8,"price":32},{"id":"ve0tlyw","name":"มิสเตอร์บีสต์ช็อก","icon":"🍫","cats":["ช็อคโกแลต"],"cap":8,"price":102},{"id":"j0bt8p6","name":"เปี๊ยะโมจิลาวาไข่เค็ม","icon":"🍬","cats":["ขนมหวาน"],"cap":4,"price":42},{"id":"skjbqh1","name":"เฉาก๊วยหนึบ","icon":"🍬","cats":["ขนมหวาน"],"cap":8,"price":18},{"id":"f6xhvrh","name":"คารามูโจ้","icon":"🍪","cats":["ขนม"],"cap":4,"price":28},{"id":"1kziaru","name":"ตันตันเมี่ยน","icon":"🍜","cats":["อาหารแช่เย็น"],"cap":4,"price":62},{"id":"5xqrki0","name":"โบโลน่าพริก","icon":"🧊","cats":["อาหารแช่เย็น"],"cap":8,"price":39},{"id":"48fxutd","name":"ชิกเก้นแฟรงค์","icon":"🧊","cats":["อาหารแช่เย็น"],"cap":8,"price":45},{"id":"hxlkq8x","name":"ไส้กรอกข้าวบิบิมบับ","icon":"🧊","cats":["อาหารแช่เย็น"],"cap":8,"price":45},{"id":"8q3ddda","name":"ไดฟูกุช็อกโก้นอค","icon":"📦","cats":["ขนม"],"cap":4,"price":42},{"id":"1s0qndc","name":"ป๊อกกี้ช็อคเทมเปอร์","icon":"🍫","cats":["ช็อคโกแลต"],"cap":4,"price":42},{"id":"36x19tq","name":"บิ๊กก้ามอนชิชิซีเรียล","icon":"📦","cats":["ขนม"],"cap":2,"price":92},{"id":"2n9vsw9","name":"จอลลี่แบร์เยลลี่","icon":"🍬","cats":["ลูกอม"],"cap":2,"price":62},{"id":"h385jed","name":"ช็อกโกแลตลาวาเค้ก","icon":"🥨","cats":["ขนมหวาน"],"cap":3,"price":32},{"id":"pobx0ct","name":"ดูไบชูวี่คุกกี้ ","icon":"🥨","cats":["ขนมหวาน"],"cap":3,"price":42},{"id":"5ertgl6","name":"ทิมเบอร์ริงดับเบิ้ลช็อก","icon":"🥨","cats":["ขนมหวาน"],"cap":3,"price":38},{"id":"r62qsz3","name":"ไข่ไก่ต้มสุก","icon":"🧊","cats":["อาหารแช่เย็น"],"cap":3,"price":21},{"id":"c7ygig9","name":"โอนิกิริแซลมอนย่างซีอิ๊ว","icon":"🧊","cats":["อาหารแช่เย็น"],"cap":5,"price":33},{"id":"7y91y8v","name":"แซนวิชไส้แฮมชีส","icon":"🧊","cats":["อาหารแช่เย็น"],"cap":3,"price":32},{"id":"7em7x86","name":"แซนวิชไส้ปูอัด","icon":"🧊","cats":["อาหารแช่เย็น"],"cap":3,"price":32},{"id":"vxw1ged","name":"นมข้าวโอ๊ตกู๊ดเมท","icon":"🧃","cats":["นม"],"cap":5,"price":29},{"id":"opy84ho","name":"บิ๊กก้าแก้วน้ำ","icon":"🥫","cats":["ขนม"],"cap":3,"price":45},{"id":"wmw9i0m","name":"เนเวอร์บายสิงห์","icon":"svg:gbottle","cats":["เครื่องดื่ม"],"cap":5,"price":49},{"id":"hxau8za","name":"เบลล์น้ำตาลกรวด","icon":"svg:gbottle","cats":["เครื่องดื่ม"],"cap":5,"price":94},{"id":"z6jzr03","name":"เบลล์ไซลิทอล","icon":"svg:gbottle","cats":["เครื่องดื่ม"],"cap":5,"price":94},{"id":"h06728v","name":"เอ็ม-150","icon":"svg:gbottle","cats":["เครื่องดื่มชูกำลัง"],"cap":5,"price":14},{"id":"gv2ks8j","name":"เรดบูล","icon":"svg:can","cats":["เครื่องดื่มชูกำลัง"],"cap":5,"price":77},{"id":"wgdg37v","name":"มอนสเตอร์อัลตร้า","icon":"svg:can","cats":["เครื่องดื่มชูกำลัง"],"cap":5,"price":51},{"id":"g9d0cdf","name":"มอนสเตอร์","icon":"svg:can","cats":["เครื่องดื่มชูกำลัง"],"cap":5,"price":51},{"id":"r9gucqr","name":"อเมซอน พีช","icon":"svg:can","cats":["กาแฟ"],"cap":4,"price":41},{"id":"ttugrj5","name":"ยูนีฟผัก","icon":"svg:can","cats":["เครื่องดื่ม"],"cap":4,"price":25},{"id":"n4kcn0m","name":"โคโค่แม็ก","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":27},{"id":"5aavk4f","name":"เย็นเย็นมะพร้าว","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":18},{"id":"qsej60l","name":"เฮย์ทีอู่หลงองุ่น","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":41},{"id":"nkb91zf","name":"เฮย์ทีกรีนทีพีช","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":41},{"id":"awoec5z","name":"พีเอชพลัสอโลเวร่า","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":22},{"id":"wx8tjyp","name":"พีเอชพลัสกิงโกะ","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":22},{"id":"v8sm4fe","name":"พีเอชพลัส","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":22},{"id":"ppme9in","name":"นมUHTเบนิฟิตต์","icon":"🧃","cats":["นม"],"cap":4,"price":45},{"id":"hkdz5hw","name":"นมพาสฯฮูเร่","icon":"🥛","cats":["นม"],"cap":4,"price":49},{"id":"hzkxcy2","name":"อิชิตัน","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":27},{"id":"4yl2cse","name":"โออิชิ","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":27},{"id":"hyetze9","name":"โค้ก 510 มล.","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":21},{"id":"st4oqz6","name":"เป๊ปซี่ 550 มล.","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":22},{"id":"rkwiyik","name":"เซียโล่ น้ำผึ้ง","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":17},{"id":"729nuep","name":"เซียโล่ แอปเปิ้ล","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":17},{"id":"blwf6mc","name":"เซียโล่ ลิ้นจี่","icon":"svg:bottle","cats":["เครื่องดื่ม"],"cap":4,"price":17}]}
+{
+  "active": 0,
+  "machines": [
+    {
+      "id": "4tf3awm",
+      "name": "ตู้ที่ 1",
+      "rows": 6,
+      "cols": 9,
+      "slots": {
+        "A1": {
+          "pid": "j7rn5ub",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียวคู่",
+          "lvl": "",
+          "note": "ช่องคู่",
+          "tags": [],
+          "span": 2
+        },
+        "A3": {
+          "pid": "j0bt8p6",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียวคู่",
+          "lvl": "",
+          "note": "",
+          "tags": [],
+          "span": 2
+        },
+        "A5": {
+          "pid": "ha1ft7a",
+          "qty": 8,
+          "cap": 8,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "A6": {
+          "pid": "zlvck9h",
+          "qty": 8,
+          "cap": 8,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2"
+          ]
+        },
+        "A7": {
+          "pid": "ve0tlyw",
+          "qty": 8,
+          "cap": 8,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "A8": {
+          "pid": "j0bt8p6",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "A9": {
+          "pid": "skjbqh1",
+          "qty": 8,
+          "cap": 8,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "B9": {
+          "pid": "1s0qndc",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2"
+          ]
+        },
+        "B8": {
+          "pid": "8q3ddda",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2",
+            "zr7b8qj"
+          ]
+        },
+        "B7": {
+          "pid": "hxlkq8x",
+          "qty": 8,
+          "cap": 8,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "B6": {
+          "pid": "48fxutd",
+          "qty": 8,
+          "cap": 8,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "B5": {
+          "pid": "5xqrki0",
+          "qty": 8,
+          "cap": 8,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "B3": {
+          "pid": "j0bt8p6",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียวคู่",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2"
+          ],
+          "span": 2
+        },
+        "B1": {
+          "pid": "j0bt8p6",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียวคู่",
+          "lvl": "",
+          "note": "",
+          "tags": [],
+          "span": 2
+        },
+        "C1": {
+          "pid": "36x19tq",
+          "qty": 2,
+          "cap": 2,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "C2": {
+          "pid": "opy84ho",
+          "qty": 3,
+          "cap": 3,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2",
+            "zr7b8qj"
+          ]
+        },
+        "C3": {
+          "pid": "h385jed",
+          "qty": 3,
+          "cap": 3,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "C4": {
+          "pid": "pobx0ct",
+          "qty": 3,
+          "cap": 3,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "C5": {
+          "pid": "5ertgl6",
+          "qty": 3,
+          "cap": 3,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "C6": {
+          "pid": "r62qsz3",
+          "qty": 3,
+          "cap": 3,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "C7": {
+          "pid": "c7ygig9",
+          "qty": 5,
+          "cap": 5,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "C8": {
+          "pid": "7y91y8v",
+          "qty": 3,
+          "cap": 3,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "C9": {
+          "pid": "7em7x86",
+          "qty": 3,
+          "cap": 3,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "D6": {
+          "pid": "h06728v",
+          "qty": 5,
+          "cap": 5,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "j7k5mct"
+          ]
+        },
+        "D7": {
+          "pid": "gv2ks8j",
+          "qty": 5,
+          "cap": 5,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t3"
+          ]
+        },
+        "D8": {
+          "pid": "wgdg37v",
+          "qty": 5,
+          "cap": 5,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t3"
+          ]
+        },
+        "D9": {
+          "pid": "g9d0cdf",
+          "qty": 5,
+          "cap": 5,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t3"
+          ]
+        },
+        "E1": {
+          "pid": "r9gucqr",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "E2": {
+          "pid": "ttugrj5",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2"
+          ]
+        },
+        "E3": {
+          "pid": "n4kcn0m",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "E4": {
+          "pid": "5aavk4f",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2"
+          ]
+        },
+        "E5": {
+          "pid": "qsej60l",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "E6": {
+          "pid": "nkb91zf",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "E7": {
+          "pid": "awoec5z",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "E8": {
+          "pid": "wx8tjyp",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "E9": {
+          "pid": "v8sm4fe",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "F1": {
+          "pid": "ppme9in",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "F2": {
+          "pid": "hkdz5hw",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "F3": {
+          "pid": "hzkxcy2",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "F4": {
+          "pid": "4yl2cse",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "F5": {
+          "pid": "hyetze9",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "F6": {
+          "pid": "st4oqz6",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t1"
+          ]
+        },
+        "F7": {
+          "pid": "rkwiyik",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "F8": {
+          "pid": "729nuep",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "F9": {
+          "pid": "blwf6mc",
+          "qty": 4,
+          "cap": 4,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "D5": {
+          "pid": "wmw9i0m",
+          "qty": 5,
+          "cap": 5,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2"
+          ]
+        },
+        "D4": {
+          "pid": "z6jzr03",
+          "qty": 5,
+          "cap": 5,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "D3": {
+          "pid": "hxau8za",
+          "qty": 5,
+          "cap": 5,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": []
+        },
+        "D2": {
+          "pid": "vxw1ged",
+          "qty": 5,
+          "cap": 5,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2"
+          ]
+        },
+        "D1": {
+          "pid": "2n9vsw9",
+          "qty": 2,
+          "cap": 2,
+          "mech": "เกลียว",
+          "lvl": "",
+          "note": "",
+          "tags": [
+            "t2",
+            "zr7b8qj"
+          ]
+        }
+      }
+    }
+  ],
+  "tags": [
+    {
+      "id": "t1",
+      "name": "สินค้าขายดี",
+      "color": "#f2555a"
+    },
+    {
+      "id": "t2",
+      "name": "สินค้าใหม่",
+      "color": "#4f9cff"
+    },
+    {
+      "id": "t3",
+      "name": "แบรนด์ยอดนิยม",
+      "color": "#31c48d"
+    },
+    {
+      "id": "zr7b8qj",
+      "name": "สินค้ากระแส",
+      "color": "#22d3ee"
+    },
+    {
+      "id": "j7k5mct",
+      "name": "สินค้ายอดนิยม",
+      "color": "#94a3b8"
+    }
+  ],
+  "products": [
+    {
+      "id": "bbty08x",
+      "name": "เลย์ร็อครสบาร์บีคิว",
+      "icon": "svg:snack",
+      "cats": [
+        "ขนม"
+      ],
+      "cap": 4,
+      "price": 35
+    },
+    {
+      "id": "j7rn5ub",
+      "name": "เลย์คลาสสิครสมันฝรั่ง",
+      "icon": "svg:snack",
+      "cats": [
+        "ขนม"
+      ],
+      "cap": 4,
+      "price": 32
+    },
+    {
+      "id": "ha1ft7a",
+      "name": "ชิคฟิงเกอร์",
+      "icon": "🧊",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 8,
+      "price": 29
+    },
+    {
+      "id": "zlvck9h",
+      "name": "ออมุกหมึกงาดำ",
+      "icon": "🧊",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 8,
+      "price": 32
+    },
+    {
+      "id": "ve0tlyw",
+      "name": "มิสเตอร์บีสต์ช็อก",
+      "icon": "🍫",
+      "cats": [
+        "ช็อคโกแลต"
+      ],
+      "cap": 8,
+      "price": 102
+    },
+    {
+      "id": "j0bt8p6",
+      "name": "เปี๊ยะโมจิลาวาไข่เค็ม",
+      "icon": "🍬",
+      "cats": [
+        "ขนมหวาน"
+      ],
+      "cap": 4,
+      "price": 42
+    },
+    {
+      "id": "skjbqh1",
+      "name": "เฉาก๊วยหนึบ",
+      "icon": "🍬",
+      "cats": [
+        "ขนมหวาน"
+      ],
+      "cap": 8,
+      "price": 18
+    },
+    {
+      "id": "f6xhvrh",
+      "name": "คารามูโจ้",
+      "icon": "🍪",
+      "cats": [
+        "ขนม"
+      ],
+      "cap": 4,
+      "price": 28
+    },
+    {
+      "id": "1kziaru",
+      "name": "ตันตันเมี่ยน",
+      "icon": "🍜",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 4,
+      "price": 62
+    },
+    {
+      "id": "5xqrki0",
+      "name": "โบโลน่าพริก",
+      "icon": "🧊",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 8,
+      "price": 39
+    },
+    {
+      "id": "48fxutd",
+      "name": "ชิกเก้นแฟรงค์",
+      "icon": "🧊",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 8,
+      "price": 45
+    },
+    {
+      "id": "hxlkq8x",
+      "name": "ไส้กรอกข้าวบิบิมบับ",
+      "icon": "🧊",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 8,
+      "price": 45
+    },
+    {
+      "id": "8q3ddda",
+      "name": "ไดฟูกุช็อกโก้นอค",
+      "icon": "📦",
+      "cats": [
+        "ขนม"
+      ],
+      "cap": 4,
+      "price": 42
+    },
+    {
+      "id": "1s0qndc",
+      "name": "ป๊อกกี้ช็อคเทมเปอร์",
+      "icon": "🍫",
+      "cats": [
+        "ช็อคโกแลต"
+      ],
+      "cap": 4,
+      "price": 42
+    },
+    {
+      "id": "36x19tq",
+      "name": "บิ๊กก้ามอนชิชิซีเรียล",
+      "icon": "📦",
+      "cats": [
+        "ขนม"
+      ],
+      "cap": 2,
+      "price": 92
+    },
+    {
+      "id": "2n9vsw9",
+      "name": "จอลลี่แบร์เยลลี่",
+      "icon": "🍬",
+      "cats": [
+        "ลูกอม"
+      ],
+      "cap": 2,
+      "price": 62
+    },
+    {
+      "id": "h385jed",
+      "name": "ช็อกโกแลตลาวาเค้ก",
+      "icon": "🥨",
+      "cats": [
+        "ขนมหวาน"
+      ],
+      "cap": 3,
+      "price": 32
+    },
+    {
+      "id": "pobx0ct",
+      "name": "ดูไบชูวี่คุกกี้ ",
+      "icon": "🥨",
+      "cats": [
+        "ขนมหวาน"
+      ],
+      "cap": 3,
+      "price": 42
+    },
+    {
+      "id": "5ertgl6",
+      "name": "ทิมเบอร์ริงดับเบิ้ลช็อก",
+      "icon": "🥨",
+      "cats": [
+        "ขนมหวาน"
+      ],
+      "cap": 3,
+      "price": 38
+    },
+    {
+      "id": "r62qsz3",
+      "name": "ไข่ไก่ต้มสุก",
+      "icon": "🧊",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 3,
+      "price": 21
+    },
+    {
+      "id": "c7ygig9",
+      "name": "โอนิกิริแซลมอนย่างซีอิ๊ว",
+      "icon": "🧊",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 5,
+      "price": 33
+    },
+    {
+      "id": "7y91y8v",
+      "name": "แซนวิชไส้แฮมชีส",
+      "icon": "🧊",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 3,
+      "price": 32
+    },
+    {
+      "id": "7em7x86",
+      "name": "แซนวิชไส้ปูอัด",
+      "icon": "🧊",
+      "cats": [
+        "อาหารแช่เย็น"
+      ],
+      "cap": 3,
+      "price": 32
+    },
+    {
+      "id": "vxw1ged",
+      "name": "นมข้าวโอ๊ตกู๊ดเมท",
+      "icon": "🧃",
+      "cats": [
+        "นม"
+      ],
+      "cap": 5,
+      "price": 29
+    },
+    {
+      "id": "opy84ho",
+      "name": "บิ๊กก้าแก้วน้ำ",
+      "icon": "🥫",
+      "cats": [
+        "ขนม"
+      ],
+      "cap": 3,
+      "price": 45
+    },
+    {
+      "id": "wmw9i0m",
+      "name": "เนเวอร์บายสิงห์",
+      "icon": "svg:gbottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 5,
+      "price": 49
+    },
+    {
+      "id": "hxau8za",
+      "name": "เบลล์น้ำตาลกรวด",
+      "icon": "svg:gbottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 5,
+      "price": 94
+    },
+    {
+      "id": "z6jzr03",
+      "name": "เบลล์ไซลิทอล",
+      "icon": "svg:gbottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 5,
+      "price": 94
+    },
+    {
+      "id": "h06728v",
+      "name": "เอ็ม-150",
+      "icon": "svg:gbottle",
+      "cats": [
+        "เครื่องดื่มชูกำลัง"
+      ],
+      "cap": 5,
+      "price": 14
+    },
+    {
+      "id": "gv2ks8j",
+      "name": "เรดบูล",
+      "icon": "svg:can",
+      "cats": [
+        "เครื่องดื่มชูกำลัง"
+      ],
+      "cap": 5,
+      "price": 77
+    },
+    {
+      "id": "wgdg37v",
+      "name": "มอนสเตอร์อัลตร้า",
+      "icon": "svg:can",
+      "cats": [
+        "เครื่องดื่มชูกำลัง"
+      ],
+      "cap": 5,
+      "price": 51
+    },
+    {
+      "id": "g9d0cdf",
+      "name": "มอนสเตอร์",
+      "icon": "svg:can",
+      "cats": [
+        "เครื่องดื่มชูกำลัง"
+      ],
+      "cap": 5,
+      "price": 51
+    },
+    {
+      "id": "r9gucqr",
+      "name": "อเมซอน พีช",
+      "icon": "svg:can",
+      "cats": [
+        "กาแฟ"
+      ],
+      "cap": 4,
+      "price": 41
+    },
+    {
+      "id": "ttugrj5",
+      "name": "ยูนีฟผัก",
+      "icon": "svg:can",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 25
+    },
+    {
+      "id": "n4kcn0m",
+      "name": "โคโค่แม็ก",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 27
+    },
+    {
+      "id": "5aavk4f",
+      "name": "เย็นเย็นมะพร้าว",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 18
+    },
+    {
+      "id": "qsej60l",
+      "name": "เฮย์ทีอู่หลงองุ่น",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 41
+    },
+    {
+      "id": "nkb91zf",
+      "name": "เฮย์ทีกรีนทีพีช",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 41
+    },
+    {
+      "id": "awoec5z",
+      "name": "พีเอชพลัสอโลเวร่า",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 22
+    },
+    {
+      "id": "wx8tjyp",
+      "name": "พีเอชพลัสกิงโกะ",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 22
+    },
+    {
+      "id": "v8sm4fe",
+      "name": "พีเอชพลัส",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 22
+    },
+    {
+      "id": "ppme9in",
+      "name": "นมUHTเบนิฟิตต์",
+      "icon": "🧃",
+      "cats": [
+        "นม"
+      ],
+      "cap": 4,
+      "price": 45
+    },
+    {
+      "id": "hkdz5hw",
+      "name": "นมพาสฯฮูเร่",
+      "icon": "🥛",
+      "cats": [
+        "นม"
+      ],
+      "cap": 4,
+      "price": 49
+    },
+    {
+      "id": "hzkxcy2",
+      "name": "อิชิตัน",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 27
+    },
+    {
+      "id": "4yl2cse",
+      "name": "โออิชิ",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 27
+    },
+    {
+      "id": "hyetze9",
+      "name": "โค้ก 510 มล.",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 21
+    },
+    {
+      "id": "st4oqz6",
+      "name": "เป๊ปซี่ 550 มล.",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 22
+    },
+    {
+      "id": "rkwiyik",
+      "name": "เซียโล่ น้ำผึ้ง",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 17
+    },
+    {
+      "id": "729nuep",
+      "name": "เซียโล่ แอปเปิ้ล",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 17
+    },
+    {
+      "id": "blwf6mc",
+      "name": "เซียโล่ ลิ้นจี่",
+      "icon": "svg:bottle",
+      "cats": [
+        "เครื่องดื่ม"
+      ],
+      "cap": 4,
+      "price": 17
+    }
+  ]
+}
