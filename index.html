@@ -314,39 +314,82 @@ const dz=document.getElementById('drop');
 document.addEventListener('dragover',e=>e.preventDefault());
 document.addEventListener('drop',e=>{e.preventDefault();if(e.dataTransfer.files[0])readFile(e.dataTransfer.files[0])});
 
-/* ---------- CLOUD + BOOT ---------- */
+/* ---------- CLOUD + BOOT v2 ---------- */
 const CK='vm_viewer_cloud';
+let LASTURL='';
+
+function mkRefreshBtn(){
+ let b=document.getElementById('rfBtn');
+ if(b)return b;
+ b=document.createElement('button');
+ b.id='rfBtn';b.className='sm';b.textContent='🔄 อัปเดต';
+ b.style.display='none';b.onclick=refreshCloud;
+ const hd=document.querySelector('header'),sp=hd.querySelector('.spacer');
+ sp?hd.insertBefore(b,sp.nextSibling):hd.appendChild(b);
+ return b;
+}
+const RF=mkRefreshBtn();
+
+function cloudURL(custom){
+ if(custom)return new URL(custom,location.href).href;
+ return new URL('data.json',location.href.split('#')[0]).href;
+}
 async function loadCloud(url,silent){
+ LASTURL=url;
  const r=await fetch(url+(url.includes('?')?'&':'?')+'t='+Date.now(),{cache:'no-store'});
- if(!r.ok)throw new Error('HTTP '+r.status);
- apply(normalize(await r.json()),silent?' ':'อัปเดตข้อมูลล่าสุดแล้ว');
+ if(!r.ok)throw new Error('HTTP '+r.status+' — ไม่พบไฟล์ที่ '+url);
+ const txt=await r.text();
+ let j;try{j=JSON.parse(txt)}catch(e){throw new Error('ไฟล์ไม่ใช่ JSON ที่ถูกต้อง')}
+ apply(normalize(j),silent?' ':'✅ อัปเดตข้อมูลล่าสุดแล้ว');
  localStorage.setItem(CK,url);
- document.getElementById('rfBtn').style.display='';
+ RF.style.display='';
 }
 async function refreshCloud(){
- const u=localStorage.getItem(CK);
- if(!u)return toast('โหมดนี้ไม่ได้เชื่อมกับไฟล์บนเว็บ');
+ const u=localStorage.getItem(CK)||LASTURL;
+ if(!u)return toast('ยังไม่ได้เชื่อมกับไฟล์บนเว็บ');
  toast('กำลังดึงข้อมูลล่าสุด…');
- try{await loadCloud(u)}catch(e){toast('⚠️ โหลดไม่ได้ · '+e.message)}
+ try{await loadCloud(u)}catch(e){cloudErr(e,u)}
 }
+function cloudErr(e,url){
+ modal(`<h3>⚠️ โหลดข้อมูลออนไลน์ไม่สำเร็จ</h3>
+  <div class="kv"><span>ที่อยู่ที่ลองโหลด</span><span style="word-break:break-all;font-size:12px">${esc(url)}</span></div>
+  <div class="kv"><span>สาเหตุ</span><span style="color:var(--bad)">${esc(e.message||'ไม่ทราบ')}</span></div>
+  <div style="font-size:13px;color:var(--dim);line-height:1.8;margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px">
+   <b style="color:var(--txt)">ตรวจสอบ 4 ข้อนี้</b><br>
+   1. ลองเปิดที่อยู่ด้านบนตรงๆ ในแท็บใหม่ — ต้องเห็นข้อความ JSON ไม่ใช่หน้า 404<br>
+   2. ไฟล์ต้องชื่อ <b>data.json</b> ตัวเล็กทั้งหมด (ไม่ใช่ Data.json / data.json.txt)<br>
+   3. ต้องอยู่<b>โฟลเดอร์เดียวกับ viewer.html</b> ใน repo<br>
+   4. หลัง Commit รอ 1–2 นาที ให้ GitHub Pages deploy เสร็จก่อน
+  </div>
+  <div class="acts">
+   <button class="btn-p" style="flex:1" onclick="closeAll();refreshCloud()">🔄 ลองใหม่</button>
+   <button onclick="closeAll();openPaste()">🔤 ใช้โค้ดแทน</button>
+   <button onclick="closeAll()">ปิด</button></div>`);
+}
+
 (async()=>{
- const h=decodeURIComponent(location.hash.slice(1));
- if(h&&h[0]==='g'){
-  const custom=h.slice(1).replace(/^[:=]/,'').trim();
-  const url=custom||new URL('data.json',location.href).href;
-  try{await loadCloud(url);return}
-  catch(e){toast('⚠️ ยังไม่พบ data.json บนเซิร์ฟเวอร์ ('+e.message+')')}
- }else if(h&&h.length>4){
+ const h=decodeURIComponent(location.hash.slice(1)||'');
+ /* โหมดลิงก์ถาวร #g หรือ #g:ชื่อไฟล์.json */
+ if(h&&h[0]==='g'&&(h.length===1||/^[:=\/]/.test(h[1]))){
+  const url=cloudURL(h.slice(1).replace(/^[:=]/,'').trim());
+  try{await loadCloud(url);return}catch(e){cloudErr(e,url)}
+ }
+ /* โหมดโค้ดฝังในลิงก์ */
+ else if(h&&h.length>4){
   try{apply(await decodeCode(h),'เปิดจากลิงก์สำเร็จ');
    history.replaceState(null,'',location.pathname);return}
   catch(e){toast('⚠️ ลิงก์เสียหาย')}
  }
+ /* เคยเชื่อมไว้แล้ว → ดึงของใหม่เงียบๆ */
  const cu=localStorage.getItem(CK);
  if(cu){try{await loadCloud(cu,true);return}catch(e){}}
+ /* ข้อมูลที่จำไว้ในเครื่อง */
+ let hasLocal=false;
  try{const c=localStorage.getItem(VK);if(c){V=normalize(JSON.parse(c));
-  document.getElementById('welcome').classList.add('hide');paint()}}catch(e){}
+  document.getElementById('welcome').classList.add('hide');paint();hasLocal=true}}catch(e){}
+ /* ไม่มีอะไรเลย → ลองหา data.json ข้างๆ ไฟล์เองเงียบๆ */
+ if(!hasLocal){try{await loadCloud(cloudURL(),true)}catch(e){}}
 })();
-document.addEventListener('gesturestart',e=>e.preventDefault());
 document.addEventListener('gesturestart',e=>e.preventDefault());
 </script>
 </body>
