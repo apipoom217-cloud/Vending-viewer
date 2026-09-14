@@ -22,8 +22,8 @@ button:active{transform:scale(.97)}
 .spacer{flex:1}
 input,select,textarea{font:inherit;background:var(--bg);color:var(--txt);border:1px solid var(--line);border-radius:9px;padding:8px 10px;outline:none;width:100%}
 input:focus,select:focus,textarea:focus{border-color:var(--acc)}
-#msel{width:auto;min-width:120px;max-width:190px;padding:6px 9px;font-size:13px;font-weight:600}
-#q{width:170px;padding:6px 10px;font-size:13px}
+#msel{width:auto;min-width:118px;max-width:185px;padding:6px 9px;font-size:13px;font-weight:600}
+#q{width:160px;padding:6px 10px;font-size:13px}
 main{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:14px;min-height:0}
 #board{width:max-content;min-width:100%}
 .stat{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);padding:0 2px 10px;position:sticky;left:0}
@@ -32,7 +32,7 @@ main{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:14px;min-heig
 .shelf{display:grid;grid-template-columns:32px repeat(var(--cols),102px);gap:8px;margin-bottom:8px}
 .shelf:last-child{margin-bottom:0}
 .rlab{display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--dim);font-size:13px}
-.slot{position:relative;background:var(--card);border:1px dashed var(--line);border-radius:12px;min-height:130px;padding:20px 6px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;overflow:hidden;transition:opacity .15s}
+.slot{position:relative;background:var(--card);border:1px dashed var(--line);border-radius:12px;min-height:132px;padding:20px 6px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;overflow:hidden;transition:opacity .15s}
 .slot.filled{border-style:solid}
 .slot.dim{opacity:.22}
 .slot.hit{box-shadow:0 0 0 2px var(--acc),0 0 18px rgba(79,156,255,.35)}
@@ -40,8 +40,8 @@ main{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:14px;min-heig
 .scode{position:absolute;top:4px;left:6px;font-size:10px;color:var(--dim);font-weight:700}
 .stags{position:absolute;top:3px;right:5px;display:flex;flex-direction:column;align-items:flex-end;gap:1px;max-width:64%}
 .stags span{font-size:9px;font-weight:800;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.ico{font-size:27px;line-height:1;height:32px;display:flex;align-items:center;justify-content:center}
-.ico svg{width:30px;height:30px}
+.ico{font-size:27px;line-height:1;height:36px;display:flex;align-items:center;justify-content:center}
+.ico svg{width:32px;height:32px}
 .sname{font-size:11px;font-weight:600;line-height:1.22;width:100%;max-height:28px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word;overflow-wrap:anywhere}
 .qty{font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;background:#233b30;color:var(--ok)}
 .qty.w{background:#3d3323;color:var(--warn)}.qty.b{background:#3d2427;color:var(--bad)}
@@ -83,7 +83,6 @@ td{padding:6px 4px 6px 0;border-top:1px solid var(--line);vertical-align:top}
   <span class="spacer"></span>
   <button class="sm" id="needBtn" onclick="needMode=!needMode;paint()">⛽ ต้องเติม</button>
   <button class="sm" onclick="openList()">📋 ใบรายการ</button>
-  <button class="sm" id="rfBtn" style="display:none" onclick="refreshCloud()">🔄 อัปเดต</button>
   <button class="sm" onclick="openPaste()">🔤 วางโค้ด</button>
   <button class="sm" onclick="fi.click()">📂 ไฟล์</button>
 </header>
@@ -111,10 +110,12 @@ td{padding:6px 4px 6px 0;border-top:1px solid var(--line);vertical-align:top}
 <div class="hint" id="hint"></div>
 
 <script>
-const VK='vm_viewer_data';
+const VK='vm_viewer_data',CK='vm_viewer_cloud';
 const MECH=['เกลียว','เกลียวคู่','สายพาน','ลิฟต์','ล็อกเกอร์'];
-let V=null,needMode=false,tagF=null;
+const PAL=['#f4a53c','#4f9cff','#31c48d','#f2555a','#b06cf5','#f472b6','#22d3ee','#a3e635','#fbbf24','#94a3b8'];
+let V=null,needMode=false,tagF=null,LASTURL='';
 
+/* ---------- ICONS ---------- */
 const SVGI={
 bottle:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="19.5" y="2.5" width="9" height="6" rx="1.6" fill="#7fb8ff"/><path d="M20 8.5h8v3.2l3.2 4.3V41a4 4 0 0 1-4 4h-6.4a4 4 0 0 1-4-4V16l3.2-4.3z" fill="#d6ecff" stroke="#6fb6ff" stroke-width="1.6" stroke-linejoin="round"/><path d="M17 24h14v9H17z" fill="#4f9cff"/><path d="M20 26.5h6M20 29.5h8" stroke="#dceeff" stroke-width="1.4" stroke-linecap="round"/></svg>`,
 can:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="13" y="6" width="22" height="36" rx="4.5" fill="#e64a4f" stroke="#b93338" stroke-width="1.6"/><path d="M13 10.5c0-2.5 2-4.5 4.5-4.5h13c2.5 0 4.5 2 4.5 4.5v1.5H13z" fill="#c9d6e8"/><path d="M13 36h22v1.5c0 2.5-2 4.5-4.5 4.5h-13C15 42 13 40 13 37.5z" fill="#c9d6e8"/><rect x="13" y="19" width="22" height="8.5" fill="#fff" opacity=".9"/><path d="M17 23.2h14" stroke="#e64a4f" stroke-width="2" stroke-linecap="round"/></svg>`,
@@ -123,8 +124,15 @@ snack:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M8 1
 chilled:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M24 2v13M19.5 5L24 8l4.5-3M19.5 12L24 9l4.5 3" stroke="#7fd3e8" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="8" y="17" width="32" height="23" rx="4" fill="#63c3dd"/><rect x="8" y="17" width="32" height="6.5" rx="3.2" fill="#cdeef8"/><rect x="12" y="27" width="10" height="9" rx="2" fill="#fff" opacity=".92"/><rect x="26" y="27" width="10" height="9" rx="2" fill="#fff" opacity=".55"/></svg>`,
 dessert:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M13 23h22l-2.8 17.5A3 3 0 0 1 29.2 43H18.8a3 3 0 0 1-3-2.5z" fill="#e8b57e"/><path d="M18 29h12M18 34h9" stroke="#c2884a" stroke-width="1.8" stroke-linecap="round" opacity=".65"/><path d="M24 8c-6.2 0-10.5 4.2-10.5 8.6 0 3.4 2.6 6.4 10.5 6.4s10.5-3 10.5-6.4C34.5 12.2 30.2 8 24 8z" fill="#ff9ec4"/><circle cx="24" cy="6.2" r="2.8" fill="#e0484d"/></svg>`,
 snackcan:`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="15" y="8" width="18" height="34" rx="3" fill="#e8a33c"/><path d="M15 38h18v1a3 3 0 0 1-3 3H18a3 3 0 0 1-3-3z" fill="#c4832a"/><rect x="15" y="18" width="18" height="10" fill="#fff" opacity=".92"/><path d="M18.5 23h11" stroke="#e8a33c" stroke-width="2" stroke-linecap="round"/><ellipse cx="24" cy="8" rx="9" ry="3.6" fill="#f6e2b6"/><ellipse cx="24" cy="8" rx="5.6" ry="2.1" fill="#dcc189"/></svg>`};
+const ICO_TBL=['svg:bottle','svg:can','svg:gbottle','svg:snack','svg:snackcan','svg:chilled','svg:dessert',
+ '🧴','🧃','🥛','🍫','🍬','🍟','🥨','🍞','🥤','☕','🍵','💧','🧊','🍜','🥪','🍦','💊','📦'];
 const isSvg=i=>typeof i==='string'&&i.startsWith('svg:');
 const icoHTML=i=>isSvg(i)?(SVGI[i.slice(4)]||'📦'):(i||'📦');
+const thumbHTML=(p,s)=>p&&p.img
+ ? `<img src="${p.img}" style="width:${s}px;height:${s}px;object-fit:cover;border-radius:${Math.round(s/5)}px;display:block">`
+ : icoHTML(p&&p.icon);
+
+/* ---------- HELPERS ---------- */
 const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 const rgba=(h,a)=>{try{const n=parseInt(String(h).slice(1),16);return`rgba(${n>>16&255},${n>>8&255},${n&255},${a})`}catch(e){return'rgba(79,156,255,'+a+')'}};
 const code=(r,c)=>String.fromCharCode(65+r)+(c+1);
@@ -142,9 +150,6 @@ function toast(m){const h=document.getElementById('hint');h.textContent=m;h.clas
 /* ---------- DECODE ---------- */
 function b64dec(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';
  const bin=atob(s),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u}
-const ICO_TBL=['svg:bottle','svg:can','svg:gbottle','svg:snack','svg:snackcan','svg:chilled','svg:dessert',
- '🧴','🧃','🥛','🍫','🍬','🍟','🥨','🍞','🥤','☕','🍵','💧','🧊','🍜','🥪','🍦','💊','📦'];
-const PAL=['#f4a53c','#4f9cff','#31c48d','#f2555a','#b06cf5','#f472b6','#22d3ee','#a3e635','#fbbf24','#94a3b8'];
 function tDec(u8){
  let s='';
  for(let i=0;i<u8.length;i++){const b=u8[i];
@@ -156,7 +161,7 @@ function tDec(u8){
 function unpack2(txt){
  const [,ps,ts,msS]=txt.split('\x02');
  const products=(ps?ps.split('\x01'):[]).map((r,i)=>{const f=r.split('\x03'),ic=f[1]||'';
-  return{id:'p'+i,name:f[0],icon:ic[0]==='!'?ic.slice(1):(ICO_TBL[+ic]||'📦'),
+  return{id:'p'+i,name:f[0],icon:ic[0]==='!'?ic.slice(1):(ICO_TBL[+ic]||'📦'),img:'',
    cap:+f[2]||0,price:+f[3]||0,cats:[]}});
  const tags=(ts?ts.split('\x01'):[]).map((r,i)=>{const f=r.split('\x03'),c=f[1]||'';
   return{id:'t'+i,name:f[0],color:c[0]==='!'?c.slice(1):(PAL[+c]||'#94a3b8')}});
@@ -170,6 +175,17 @@ function unpack2(txt){
   return{id:'m'+i,name:f[0],rows:+f[1]||6,cols:+f[2]||9,slots}});
  return{active:0,machines,tags,products};
 }
+function unpackOld(d){
+ if(!d||!d.m)throw 0;
+ const products=d.p.map((a,i)=>({id:'p'+i,name:a[0],icon:a[1],img:'',cap:a[2],price:a[3],cats:a[4]?a[4].split('|'):[]}));
+ const tags=d.t.map((a,i)=>({id:'t'+i,name:a[0],color:a[1]}));
+ const machines=d.m.map((a,i)=>{const slots={};
+  for(const k in a[3]){const s=a[3][k];
+   slots[k]={pid:'p'+s[0],qty:s[1],cap:s[2],mech:MECH[s[3]]||'เกลียว',lvl:s[4],span:s[5],
+    tags:(s[6]||[]).map(x=>'t'+x),note:s[7]||''}}
+  return {id:'m'+i,name:a[0],rows:a[1],cols:a[2],slots}});
+ return {active:0,machines,tags,products};
+}
 async function decodeCode(str){
  let s=String(str||'').trim();
  if(s.includes('#'))s=s.slice(s.indexOf('#')+1);
@@ -181,18 +197,7 @@ async function decodeCode(str){
   bytes=new Uint8Array(await new Response(ds.readable).arrayBuffer());
  }else if(tag!=='r'&&tag!=='R')throw 0;
  if(tag==='Z'||tag==='R')return unpack2(tDec(bytes));
- return unpack(JSON.parse(new TextDecoder().decode(bytes)));
-}
-function unpack(d){
- if(!d||!d.m)throw 0;
- const products=d.p.map((a,i)=>({id:'p'+i,name:a[0],icon:a[1],cap:a[2],price:a[3],cats:a[4]?a[4].split('|'):[]}));
- const tags=d.t.map((a,i)=>({id:'t'+i,name:a[0],color:a[1]}));
- const machines=d.m.map((a,i)=>{const slots={};
-  for(const k in a[3]){const s=a[3][k];
-   slots[k]={pid:'p'+s[0],qty:s[1],cap:s[2],mech:MECH[s[3]]||'เกลียว',lvl:s[4],span:s[5],
-    tags:(s[6]||[]).map(x=>'t'+x),note:s[7]||''}}
-  return {id:'m'+i,name:a[0],rows:a[1],cols:a[2],slots}});
- return {active:0,machines,tags,products};
+ return unpackOld(JSON.parse(new TextDecoder().decode(bytes)));
 }
 function normalize(d){
  if(!d||typeof d!=='object')throw 0;
@@ -201,24 +206,16 @@ function normalize(d){
  throw 0;
 }
 function apply(data,msg){
- V=data;try{localStorage.setItem(VK,JSON.stringify(V))}catch(e){}
+ V=data;
+ try{localStorage.setItem(VK,JSON.stringify(V))}catch(e){}
  document.getElementById('welcome').classList.add('hide');
  needMode=false;tagF=null;document.getElementById('q').value='';
- paint();toast(msg||'โหลดข้อมูลสำเร็จ');
+ paint();if(msg&&msg.trim())toast(msg);
 }
 function readFile(f){if(!f)return;const r=new FileReader();
- r.onload=()=>{try{apply(normalize(JSON.parse(r.result)),'เปิดไฟล์สำเร็จ')}catch(e){toast('⚠️ ไฟล์ไม่ถูกต้อง')}};
+ r.onload=()=>{try{localStorage.removeItem(CK);RF.style.display='none';
+  apply(normalize(JSON.parse(r.result)),'เปิดไฟล์สำเร็จ')}catch(e){toast('⚠️ ไฟล์ไม่ถูกต้อง')}};
  r.readAsText(f)}
-function openPaste(){
- const md=modal(`<h3>🔤 วางโค้ด / ลิงก์</h3>
-  <div class="f"><label>วางข้อความที่ได้รับมาที่นี่</label>
-   <textarea id="pc" rows="5" placeholder="z8J9... หรือ https://.../viewer.html#z8J9..."></textarea></div>
-  <div class="acts"><button class="btn-p" style="flex:1" id="pgo">เปิดผัง</button>
-  <button onclick="closeAll()">ยกเลิก</button></div>`);
- md.querySelector('#pgo').onclick=async()=>{
-  try{apply(await decodeCode(md.querySelector('#pc').value),'โหลดจากโค้ดสำเร็จ');closeAll()}
-  catch(e){toast('⚠️ โค้ดไม่ถูกต้อง')}};
-}
 
 /* ---------- PAINT ---------- */
 function paint(){
@@ -253,7 +250,7 @@ function paint(){
       h+=`<div class="${cl}" data-k="${k}" style="${st}${col?`background:${rgba(col,.16)};border-color:${rgba(col,.75)}`:''}">
         <span class="scode">${slotLabel(m,k)}</span>
         <span class="stags">${tg.map(t=>`<span style="color:${t.color}">${esc(t.name)}</span>`).join('')}</span>
-        <div class="ico">${icoHTML(p.icon)}</div>
+        <div class="ico">${thumbHTML(p,34)}</div>
         <div class="sname">${esc(p.name)}</div>
         <span class="qty ${cls}">${s.qty}/${s.cap}</span>
         <span class="mech">${esc(s.mech||'')}${s.lvl?' '+esc(s.lvl):''}</span></div>`;
@@ -277,7 +274,7 @@ function showSlot(k){
   const p=P(s.pid),tg=(s.tags||[]).map(T).filter(Boolean);
   const pct=s.cap?s.qty/s.cap:0,fg=s.qty==0?'var(--bad)':pct<=.3?'var(--warn)':'var(--ok)';
   modal(`<h3 style="display:flex;align-items:center;gap:10px">
-      <span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--card);border-radius:10px;font-size:22px">${icoHTML(p?.icon)}</span>
+      <span style="width:46px;height:46px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--card);border-radius:11px;font-size:22px;overflow:hidden">${thumbHTML(p,46)}</span>
       ช่อง ${slotLabel(m,k)}</h3>
     <div class="kv"><span>สินค้า</span><span>${p?esc(p.name):'—'}</span></div>
     <div class="kv"><span>แท็ก</span><span>${tg.map(t=>`<span style="color:${t.color}">${esc(t.name)}</span>`).join(' · ')||'—'}</span></div>
@@ -308,16 +305,19 @@ function openList(){
    <div class="acts"><button style="flex:1" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
    <button class="btn-p" onclick="closeAll()">ปิด</button></div>`,true);
 }
-const dz=document.getElementById('drop');
-['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('over')}));
-['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('over')}));
-document.addEventListener('dragover',e=>e.preventDefault());
-document.addEventListener('drop',e=>{e.preventDefault();if(e.dataTransfer.files[0])readFile(e.dataTransfer.files[0])});
+function openPaste(){
+ const md=modal(`<h3>🔤 วางโค้ด / ลิงก์</h3>
+  <div class="f"><label>วางข้อความที่ได้รับมาที่นี่</label>
+   <textarea id="pc" rows="5" placeholder="Z8J9... หรือ https://.../viewer.html#Z8J9..."></textarea></div>
+  <div class="acts"><button class="btn-p" style="flex:1" id="pgo">เปิดผัง</button>
+  <button onclick="closeAll()">ยกเลิก</button></div>`);
+ md.querySelector('#pgo').onclick=async()=>{
+  try{localStorage.removeItem(CK);RF.style.display='none';
+   apply(await decodeCode(md.querySelector('#pc').value),'โหลดจากโค้ดสำเร็จ');closeAll()}
+  catch(e){toast('⚠️ โค้ดไม่ถูกต้อง')}};
+}
 
-/* ---------- CLOUD + BOOT v2 ---------- */
-const CK='vm_viewer_cloud';
-let LASTURL='';
-
+/* ---------- CLOUD ---------- */
 function mkRefreshBtn(){
  let b=document.getElementById('rfBtn');
  if(b)return b;
@@ -329,7 +329,6 @@ function mkRefreshBtn(){
  return b;
 }
 const RF=mkRefreshBtn();
-
 function cloudURL(custom){
  if(custom)return new URL(custom,location.href).href;
  return new URL('data.json',location.href.split('#')[0]).href;
@@ -337,10 +336,10 @@ function cloudURL(custom){
 async function loadCloud(url,silent){
  LASTURL=url;
  const r=await fetch(url+(url.includes('?')?'&':'?')+'t='+Date.now(),{cache:'no-store'});
- if(!r.ok)throw new Error('HTTP '+r.status+' — ไม่พบไฟล์ที่ '+url);
+ if(!r.ok)throw new Error('HTTP '+r.status+' — ไม่พบไฟล์');
  const txt=await r.text();
  let j;try{j=JSON.parse(txt)}catch(e){throw new Error('ไฟล์ไม่ใช่ JSON ที่ถูกต้อง')}
- apply(normalize(j),silent?' ':'✅ อัปเดตข้อมูลล่าสุดแล้ว');
+ apply(normalize(j),silent?'':'✅ อัปเดตข้อมูลล่าสุดแล้ว');
  localStorage.setItem(CK,url);
  RF.style.display='';
 }
@@ -355,11 +354,11 @@ function cloudErr(e,url){
   <div class="kv"><span>ที่อยู่ที่ลองโหลด</span><span style="word-break:break-all;font-size:12px">${esc(url)}</span></div>
   <div class="kv"><span>สาเหตุ</span><span style="color:var(--bad)">${esc(e.message||'ไม่ทราบ')}</span></div>
   <div style="font-size:13px;color:var(--dim);line-height:1.8;margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px">
-   <b style="color:var(--txt)">ตรวจสอบ 4 ข้อนี้</b><br>
-   1. ลองเปิดที่อยู่ด้านบนตรงๆ ในแท็บใหม่ — ต้องเห็นข้อความ JSON ไม่ใช่หน้า 404<br>
-   2. ไฟล์ต้องชื่อ <b>data.json</b> ตัวเล็กทั้งหมด (ไม่ใช่ Data.json / data.json.txt)<br>
-   3. ต้องอยู่<b>โฟลเดอร์เดียวกับ viewer.html</b> ใน repo<br>
-   4. หลัง Commit รอ 1–2 นาที ให้ GitHub Pages deploy เสร็จก่อน
+   <b style="color:var(--txt)">ตรวจสอบ 4 ข้อ</b><br>
+   1. เปิดที่อยู่ด้านบนตรงๆ ในแท็บใหม่ — ต้องเห็น JSON ไม่ใช่ 404<br>
+   2. ไฟล์ต้องชื่อ <b>data.json</b> ตัวเล็กทั้งหมด<br>
+   3. ต้องอยู่<b>โฟลเดอร์เดียวกับ viewer.html</b><br>
+   4. หลัง Commit รอ 1–2 นาทีให้ deploy เสร็จ
   </div>
   <div class="acts">
    <button class="btn-p" style="flex:1" onclick="closeAll();refreshCloud()">🔄 ลองใหม่</button>
@@ -367,27 +366,29 @@ function cloudErr(e,url){
    <button onclick="closeAll()">ปิด</button></div>`);
 }
 
+/* ---------- DRAG DROP ---------- */
+const dz=document.getElementById('drop');
+['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('over')}));
+document.addEventListener('dragover',e=>e.preventDefault());
+document.addEventListener('drop',e=>{e.preventDefault();if(e.dataTransfer.files[0])readFile(e.dataTransfer.files[0])});
+
+/* ---------- BOOT ---------- */
 (async()=>{
  const h=decodeURIComponent(location.hash.slice(1)||'');
- /* โหมดลิงก์ถาวร #g หรือ #g:ชื่อไฟล์.json */
  if(h&&h[0]==='g'&&(h.length===1||/^[:=\/]/.test(h[1]))){
   const url=cloudURL(h.slice(1).replace(/^[:=]/,'').trim());
   try{await loadCloud(url);return}catch(e){cloudErr(e,url)}
- }
- /* โหมดโค้ดฝังในลิงก์ */
- else if(h&&h.length>4){
+ }else if(h&&h.length>4){
   try{apply(await decodeCode(h),'เปิดจากลิงก์สำเร็จ');
    history.replaceState(null,'',location.pathname);return}
   catch(e){toast('⚠️ ลิงก์เสียหาย')}
  }
- /* เคยเชื่อมไว้แล้ว → ดึงของใหม่เงียบๆ */
  const cu=localStorage.getItem(CK);
  if(cu){try{await loadCloud(cu,true);return}catch(e){}}
- /* ข้อมูลที่จำไว้ในเครื่อง */
  let hasLocal=false;
  try{const c=localStorage.getItem(VK);if(c){V=normalize(JSON.parse(c));
   document.getElementById('welcome').classList.add('hide');paint();hasLocal=true}}catch(e){}
- /* ไม่มีอะไรเลย → ลองหา data.json ข้างๆ ไฟล์เองเงียบๆ */
  if(!hasLocal){try{await loadCloud(cloudURL(),true)}catch(e){}}
 })();
 document.addEventListener('gesturestart',e=>e.preventDefault());
